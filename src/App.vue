@@ -6,15 +6,17 @@
       <label class="fs-18 ml-50">
         CI & CD Platform
       </label>
+     
       <span class="logo pull-right">
-        <el-menu  class="el-menu-demo" mode="horizontal" background-color="#006342" >
-        
-          <el-submenu index="1" class="header-menu">
-            <template slot="title"><img class="logo mr-15" src="./assets/logo.png" alt="" style="position:relative;top:-8px;" /> 管理员</template>
-            <el-menu-item index="">Logout</el-menu-item>
-          </el-submenu>
-        </el-menu>
-       
+        <el-dropdown placement="top-start" trigger="click">
+          <span class="el-dropdown-link">
+            <img class="logo mr-15" src="./assets/logo.png" alt="" style="position:relative;float:left;" />管理员
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item>
+              <font style="color:#2b8815;margin-left:10px;">·</font> Logout</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
       </span>
 
     </el-header>
@@ -180,6 +182,7 @@
 
   .logo {
     cursor:pointer;
+    margin-right:20px;
   }
 
   .logo img{
@@ -262,10 +265,27 @@
     border-left:3px solid #2b8815;
   }
 
-  .logo .el-menu--horizontal {
-    border:0px; 
+  .logo .el-dropdown-link {
+    color:#fff;
   }
 
+  .el-popper[x-placement^=bottom] .popper__arrow {
+    display:none;
+  }
+
+  .el-dropdown-menu.el-popper {
+    top:50px !important;
+    margin:0px !important;
+    padding:0px !important;
+    border-radius: 0px  0px  4px 4px !important;
+  }
+
+  .el-dropdown-menu__item {
+    padding:0px;
+    padding-right:40px;
+  }
+
+  
   .captionBar {
     position:absolute;
     width:100%;
@@ -275,14 +295,7 @@
     padding-left:15px;
   }
 
-  .el-menu-item.is-active {
-    background-color:#fff !important;
-  }
-
-  .el-menu.el-menu--popup {
-    background-color:#fff !important;
-  }
-
+ 
   .Router {
     margin-top:50px;
     padding-left:15px;
