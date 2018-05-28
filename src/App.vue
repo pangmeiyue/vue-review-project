@@ -6,16 +6,22 @@
       <label class="fs-18 ml-50">
         CI & CD Platform
       </label>
-
       <span class="logo pull-right">
-        <img class="logo mr-15" src="./assets/logo.png" alt="" /><font class="fs-12">管理员</font>
+        <el-menu  class="el-menu-demo" mode="horizontal" background-color="#006342" >
+        
+          <el-submenu index="1" class="header-menu">
+            <template slot="title"><img class="logo mr-15" src="./assets/logo.png" alt="" style="position:relative;top:-8px;" /> 管理员</template>
+            <el-menu-item index="">Logout</el-menu-item>
+          </el-submenu>
+        </el-menu>
+       
       </span>
 
     </el-header>
     <el-container>
 
       <!--定义侧边栏导航区-->
-      <el-aside width="240px">
+      <el-aside width="240px" class="asideLeft">
         <el-menu default-active="2" text-color="#3d3935" active-text-color="#2b8815" unique-opened router>
           <el-submenu index="1">
             <template slot="title">
@@ -46,15 +52,20 @@
       
 
       <!--定义内容区-->
-      <el-main>
-        <el-header height="44px" class="main-header">
-          {{caption}}
+      <el-main class="main">
+        
+        <el-header height="44px" class="main-header captionBar">
+            <el-breadcrumb separator="/" class="lh-44">
+              <el-breadcrumb-item v-for="item in caption" :to="{path: item.url}">{{item.text}}</el-breadcrumb-item>
+            </el-breadcrumb>
         </el-header>
+
+        
 
         <el-container height="100%">
           
-            <router-view ></router-view>
-          
+            <router-view class="Router"></router-view>
+            
         </el-container>
       </el-main>
 
@@ -62,7 +73,7 @@
   </el-container>
 </template>
 
-<style>
+<style lang="scss">
 
   @font-face {
         font-family: 'iconfont';
@@ -108,6 +119,10 @@
     padding:0px;
   }
 
+  .main {
+    position:relative;
+  }
+
   /*
     侧边栏样式
   */
@@ -144,6 +159,11 @@
     font-size:18px;
   }
 
+  .lh-44 {
+
+    line-height:44px;
+  }
+
   .ml-50 {
 
     margin-left:50px;
@@ -175,21 +195,29 @@
     top:-10px;
     margin-right:30px;
   }
+
+  .header-menu .el-submenu__title {
+    height:47px !important;
+    line-height:47px !important;
+    background-color:#006342;
+    color:#fff !important;
+    border:0px !important;
+  }
   
-  .el-submenu__title {
+  .asideLeft .el-submenu__title {
 
     height:47px;
     line-height:47px;
   }
 
-  .el-submenu .el-menu-item {
+  .asideLeft .el-submenu .el-menu-item {
 
     height:38px;
     line-height:38px;
     background-color:#fff;
   }
 
-  .el-menu-item-group__title {
+  .asideLeft .el-menu-item-group__title {
     display:none;
   }
 
@@ -209,7 +237,7 @@
         to {border-left:3px solid #2b8815;}
     }
 
-  .is-opened .el-submenu__title {
+  .asideLeft .is-opened .el-submenu__title {
     color:#2b8815 !important;
     background-color: #f7f7f7;
     
@@ -219,14 +247,14 @@
     border-left:3px solid #2b8815;
   }
 
-  .el-menu-item-group li:hover {
+  .asideLeft .el-menu-item-group li:hover {
     animation-iteration-count:0;
     animation:spreadDelBut 0.5s ;
     -webkit-animation:navItemAnimation 0.2s ;
     border-left:3px solid #2b8815;
   }
 
-  .el-menu-item.is-active {
+  .asideLeft .el-menu-item.is-active {
 
     animation-iteration-count:0;
     animation:spreadDelBut 0.5s ;
@@ -234,13 +262,25 @@
     border-left:3px solid #2b8815;
   }
 
-  .main-header {
+  .logo .el-menu--horizontal {
+    border:0px; 
+  }
+
+  .captionBar {
     position:absolute;
     width:100%;
     background-color:#f7f7f7;
     color:#707070;
     line-height:44px;
     padding-left:15px;
+  }
+
+  .el-menu-item.is-active {
+    background-color:#fff !important;
+  }
+
+  .el-menu.el-menu--popup {
+    background-color:#fff !important;
   }
 
   .Router {
@@ -250,6 +290,7 @@
 </style>
 
 <script>
+    import Vue from 'vue'
 
     export default {
       name: 'App',
@@ -262,6 +303,7 @@
 
       created:function(){
        
+        cicd.captionBar = this;
       },
 
       mounted:function(){
@@ -271,24 +313,6 @@
 
       methods: {
 
-          
-      },
-
-      //使用watch 监听$router的变化并设置页面切换动画
-      watch: {
-        $route(to, from) {
-          if(to.fullPath == "/Projects") {
-             this.caption = "Configure Manage / Project List";
-          }
-
-          if(to.fullPath == "/Configure") {
-             this.caption = "Configure Manage / Project Configure";
-          }
-
-          if(to.fullPath == "/Environment") {
-             this.caption = "Configure Manage / System Configure";
-          }
-        }
       }
     }
 </script>
