@@ -304,6 +304,7 @@
 
 <script>
     import Vue from 'vue'
+    import axios from 'axios'
 
     export default {
       name: 'App',
@@ -317,6 +318,11 @@
       created:function(){
        
         cicd.captionBar = this;
+
+
+        axios.post('/api/menuList').then(function (response) {
+          console.log(response);
+        });
       },
 
       mounted:function(){
