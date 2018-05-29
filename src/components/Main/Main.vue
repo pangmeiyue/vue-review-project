@@ -25,30 +25,16 @@
         <!--定义侧边栏导航区-->
         <el-aside width="240px" class="asideLeft">
             <el-menu default-active="2" text-color="#3d3935" active-text-color="#2b8815" unique-opened router>
-            <el-submenu index="1">
-                <template slot="title">
-                <font class="iconfont fs-16">&#xe639;</font>
-                <span class="fs-15">CI</span>
-                </template>
-                <el-menu-item-group>
-                <el-menu-item index="Projects" class="fs-14">Projects</el-menu-item>
-                <el-menu-item index="Configure" class="fs-14">Configure</el-menu-item>
-                <el-menu-item index="Environment" class="fs-14">Environment</el-menu-item>
-                </el-menu-item-group>
-            </el-submenu>
-
-            <el-submenu index="2">
-                <template slot="title">
-                <font class="iconfont fs-16">&#xe61f;</font>
-                <span class="fs-15">CD</span>
-                </template>
-                <el-menu-item-group>
-                <el-menu-item index="1-4" class="fs-14">Workflow</el-menu-item>
-                <el-menu-item index="1-5" class="fs-14">History</el-menu-item>
-                <el-menu-item index="1-6" class="fs-14">Inventory</el-menu-item>
-                </el-menu-item-group>
-            </el-submenu>
-            
+                <el-submenu index="1" v-for="mainMenu in menuData" :key="mainMenu.menuId">
+                    <template slot="title">
+                      <font class="iconfont fs-16" v-if="mainMenu.menuId == 54">&#xe639;</font>
+                      <font class="iconfont fs-16" v-if="mainMenu.menuId == 58">&#xe61f;</font>
+                      <span class="fs-15">{{mainMenu.menuName}}</span>
+                    </template>
+                    <el-menu-item-group>
+                        <el-menu-item @click="goPath(subMenu)" index="" class="fs-14" v-for="subMenu in mainMenu.subMenu" :key="subMenu.menuId">{{subMenu.menuName}}</el-menu-item>
+                    </el-menu-item-group>
+                </el-submenu>
             </el-menu>
         </el-aside>
         
@@ -58,11 +44,9 @@
             
             <el-header height="44px" class="main-header captionBar">
                 <el-breadcrumb separator="/" class="lh-44">
-                <el-breadcrumb-item v-for="item in caption" :to="{path: item.url}">{{item.text}}</el-breadcrumb-item>
+                <el-breadcrumb-item v-for="item in caption" :to="{path: item.url}" :key="item.key">{{item.text}}</el-breadcrumb-item>
                 </el-breadcrumb>
             </el-header>
-
-            
 
             <el-container height="100%">
             
@@ -305,24 +289,54 @@
 <script>
     import Vue from 'vue'
     import axios from 'axios'
+    import qs from 'qs'
 
     export default {
       name: 'App',
 
       data(){
           return {
-            caption:""
+            caption:"",
+            menuData:[]
           }
       },
 
       created:function(){
        
+        var self = this;
         cicd.captionBar = this;
 
 
-        axios.post('/api/menuList').then(function (response) {
-          console.log(response);
-        });
+        /*--菜单数据模拟开始--*/
+        // 菜单json数据
+        var menuDataJSON = '[{"menuId":54,"noId":null,"parentNoId":null,"isHome":null,"isVisible":null,"orderId":null,"menuIcon":"icon-LB","menuName":"CI","menuLink":"#","subMenu":[{"menuId":89,"noId":null,"parentNoId":null,"isHome":null,"isVisible":null,"orderId":null,"menuIcon":"","menuName":"Projects","menuLink":"/ciapp-server/ci/view__project_list","subMenu":[]},{"menuId":90,"noId":null,"parentNoId":null,"isHome":null,"isVisible":null,"orderId":null,"menuIcon":"","menuName":"Configure","menuLink":"/ciapp-server/ci/view__project-management","subMenu":[]},{"menuId":59,"noId":null,"parentNoId":null,"isHome":null,"isVisible":null,"orderId":null,"menuIcon":"","menuName":"Environment","menuLink":"/ciapp-server/ci/view__platform-configuration","subMenu":[]}]},{"menuId":58,"noId":null,"parentNoId":null,"isHome":null,"isVisible":null,"orderId":null,"menuIcon":"icon-install","menuName":"CD","menuLink":"#","subMenu":[{"menuId":60,"noId":null,"parentNoId":null,"isHome":null,"isVisible":null,"orderId":null,"menuIcon":"","menuName":"Workflow","menuLink":"cd-server/toPage/workflow|availableList","subMenu":[]},{"menuId":92,"noId":null,"parentNoId":null,"isHome":null,"isVisible":null,"orderId":null,"menuIcon":"","menuName":"History","menuLink":"cd-server/toPage/workflow|historyList","subMenu":[]},{"menuId":91,"noId":null,"parentNoId":null,"isHome":null,"isVisible":null,"orderId":null,"menuIcon":"","menuName":"Inventory","menuLink":"cd-server/inventory/listPage","subMenu":[]}]}]';
+        
+        // 定时器500毫秒获取数据
+        setTimeout(function(){
+          
+          self.menuData = JSON.parse(menuDataJSON);
+        },500)
+        /*--菜单数据模拟结束--*/
+
+
+        // var data =  qs.stringify({
+        //     username:"admin",
+        //     password:"Pass2017"
+        // });
+        // //  提交数据
+        // axios({
+        //       method: 'post',
+        //       url: '/api/login',
+        //       //    必不可少，修改数据的提交方式
+        //       headers : {
+        //           "Content-Type":'application/x-www-form-urlencoded; charset=UTF-8'
+        //       },
+        //       data
+        // }).then(function (response) {
+
+        //   self.menuData = response.data;
+        //   console.log(response,"ggg");
+        // });
       },
 
       mounted:function(){
@@ -331,7 +345,17 @@
       },
 
       methods: {
+        
+        goPath:function(menu) {
 
+          if (menu.menuId == 89) {
+            this.$router.push({ path: 'Projects'});
+          } else if(menu.menuId == 90) {
+            this.$router.push({ path: 'Configure'});
+          } else if(menu.menuId == 59) {
+            this.$router.push({ path: 'Environment'});
+          }
+        }
       }
     }
 </script>

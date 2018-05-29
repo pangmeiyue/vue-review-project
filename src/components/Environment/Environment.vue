@@ -18,8 +18,8 @@
       created:function(){
         
           cicd.captionBar.caption = [
-              {text:"Configure Manage",url:""},
-              {text:" System Configure",url:"/Environment"}
+              {key:5,text:"Configure Manage",url:""},
+              {key:6,text:" System Configure",url:"/Environment"}
           ]
       },
 
