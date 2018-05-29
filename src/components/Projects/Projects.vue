@@ -77,7 +77,7 @@
             }, {
                 date: '2016-05-04',
                 name: '王小虎',
-                address: '上海市普陀区金沙江路 1517 弄',
+                address: '上海市普陀区金沙江路 1111 弄',
                 take:'<i class="iconfont  icon-detail taskEntrance" value="132"></i><i class="iconfont icon-more active"></i>'
             }, {
                 date: '2016-05-01',
