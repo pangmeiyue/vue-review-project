@@ -1,5 +1,6 @@
 <template>
     <div id="projects">
+        <i class="iconfont  icon-detail" value="132"></i><i class="iconfont icon-more"></i>
         <!-- <table class="tab_projects">
             <thead>
                 <tr>
@@ -30,17 +31,33 @@
         >
         <el-table-column
             prop="date"
-            label="日期"
+            label="Domain"
             width="180">
         </el-table-column>
         <el-table-column
             prop="name"
-            label="姓名"
+            label="System"
             width="180">
         </el-table-column>
         <el-table-column
             prop="address"
-            label="地址">
+            label="Creator">
+        </el-table-column>
+        <el-table-column
+            prop="name"
+            label="Remark"
+            width="180">
+        </el-table-column>
+        <el-table-column
+            prop="take"
+            label="Operating" 
+            v-html="take">
+           <template slot-scope="scope">
+                <i class="el-icon-edit-outline"></i>
+                <i class="el-icon-tickets"></i>
+                <span>123</span>
+                <i class="iconfont icon-detail" style="height:20px;width:20px;font-size:10px;"></i>
+            </template>
         </el-table-column>
         </el-table>
     </div>
@@ -53,22 +70,27 @@
 
       data(){
           return {
+            take:'<i class="iconfont  icon-detail taskEntrance" value="132"></i><i class="iconfont icon-more active"></i>',
             tableData: [{
                 date: '2016-05-02',
                 name: '王小虎',
-                address: '上海市普陀区金沙江路 1518 弄'
+                address: '上海市普陀区金沙江路 1518 弄',
+                // take:`<i class="iconfont  icon-detail taskEntrance" value="132"></i><i class="iconfont icon-more active"></i>`
             }, {
                 date: '2016-05-04',
                 name: '王小虎',
-                address: '上海市普陀区金沙江路 1517 弄'
+                address: '上海市普陀区金沙江路 1517 弄',
+                // take:'<i class="iconfont  icon-detail taskEntrance" value="132"></i><i class="iconfont icon-more active"></i>'
             }, {
                 date: '2016-05-01',
                 name: '王小虎',
-                address: '上海市普陀区金沙江路 1519 弄'
+                address: '上海市普陀区金沙江路 1519 弄',
+                // take:'<i class="iconfont  icon-detail taskEntrance" value="132"></i><i class="iconfont icon-more active"></i>'
             }, {
                 date: '2016-05-03',
                 name: '王小虎',
-                address: '上海市普陀区金沙江路 1516 弄'
+                address: '上海市普陀区金沙江路 1516 弄',
+                // take:'<i class="iconfont  icon-detail taskEntrance" value="132"></i><i class="iconfont icon-more active"></i>'
             }]
           }
       },
@@ -99,8 +121,26 @@
         
     }
     
-     #projects .el-table td, .el-table th.is-leaf{
+     #projects .el-table td{
         border-bottom: 0;
+        height: 55px;
+        border-bottom: 10px solid #e9eef3;
     }
+    #projects .el-table tr{
+        height: 55px;
+    }
+    #projects  .el-table th.is-leaf{
+        background: #e9eef3;
+        line-height: 70px;
+    }
+    #projects .has-gutter{
+         height: 50px;
+        background: #e9eef3;
+
+    }
+    #projects .el-table .cell{
+        padding: 10px;
+    }
+    
    
 </style>
