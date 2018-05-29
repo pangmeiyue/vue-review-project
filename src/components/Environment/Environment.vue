@@ -4,7 +4,7 @@
     <div class="content-info" id="content-info">
       <div class="item item1" id="code">
         <div class="item-title clear">
-          <i></i>
+          <i class="iconfont icon-compiled1"></i>
           <span class="tittle fl">Code</span>
           <div class="fr">
             <button>添加</button>
@@ -137,7 +137,7 @@
     methods: {
       jump(index) {
         let jump = document.querySelectorAll('.item')
-        // 获取需要滚动的距离
+        // 获取需要滚动的距离1
         let total = jump[index].offsetTop - 70;
         document.getElementsByClassName('el-main main')[0].scrollTop = total
       },
