@@ -4,7 +4,7 @@
     <div class="content-info" id="content-info">
       <div class="item item1" id="code">
         <div class="item-title clear">
-          <i class="iconfont icon-compiled1"></i>
+          <font class="iconfont icon-compiled1"></font>
           <span class="tittle fl">Code</span>
           <div class="fr">
             <button>添加</button>
@@ -126,20 +126,47 @@
       ]
     },
     mounted: function () {
-      //   this.$axios({
-      //     method: 'POST',
-      //     url: 'api/ciapp-server/dict/type_TOOLS_TYPE'
-      //   }).then(data => {
-      //     console.log(data)
-      //   })
+        // this.$axios({
+        //   method: 'POST',
+        //   url: 'api/ciapp-server/dict/type_TOOLS_TYPE'
+        // }).then(data => {
+        //   console.log(data)
+        // })
     },
 
     methods: {
       jump(index) {
         let jump = document.querySelectorAll('.item')
-        // 获取需要滚动的距离1
+        // 获取需要滚动的距离
         let total = jump[index].offsetTop - 70;
-        document.getElementsByClassName('el-main main')[0].scrollTop = total
+        // document.getElementsByClassName('el-main main')[0].scrollTop = total
+        let distance = document.getElementsByClassName('el-main main')[0].scrollTop
+        let step = total / 50
+        if(total>distance){
+            smoothDown()
+        }else{
+            let newTotal = distance -total
+            step = newTotal/50
+            smoothUp()
+        }
+        function smoothDown () {
+          if (distance < total) {
+            distance += step
+　　　　　　　document.getElementsByClassName('el-main main')[0].scrollTop = distance
+            setTimeout(smoothDown, 10)
+          } else {
+            document.getElementsByClassName('el-main main')[0].scrollTop = total
+          }
+        }
+        function smoothUp () {
+          if (distance > total) {
+            distance -= step
+　　　　　　　document.getElementsByClassName('el-main main')[0].scrollTop = distance
+            setTimeout(smoothUp, 10)
+          } else {
+            document.getElementsByClassName('el-main main')[0].scrollTop = total
+          }
+       } 
       },
     }
   }
