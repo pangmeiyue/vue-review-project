@@ -8,7 +8,7 @@ import Environment from '@/components/Environment/Environment'
 import Code from '@/components/Environment/children/Code/Code'
 import Compile from '@/components/Environment/children/Compile/Compile'
 import Compliance from '@/components/Environment/children/Compliance/Compliance'
-
+import Test from "@/components/Environment/children/Test/Test"
 
 Vue.use(Router)
 
@@ -39,6 +39,7 @@ export default new Router({
               { path: "/Environment/Code", component: Code },
               { path: "/Environment/Compile", component: Compile },
               { path: "/Environment/Compliance", component: Compliance },
+              { path: "/Environment/Test", component: Test }
             ]
           }
       ],

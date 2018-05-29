@@ -7,7 +7,7 @@
           <font class="iconfont icon-compiled1"></font>
           <span class="tittle fl">Code</span>
           <div class="fr">
-            <button>添加</button>
+            <router-link to="/Environment/Code">添加</router-link>
           </div>
         </div>
         <div class="content clear">
@@ -36,7 +36,7 @@
           <i></i>
           <span class="tittle fl">Compile</span>
           <div class="fr">
-            <button>添加</button>
+            <router-link to="/Environment/Compile">添加</router-link>
           </div>
         </div>
         <div class="content clear">
@@ -65,7 +65,7 @@
           <i></i>
           <span class="tittle fl">Compliance</span>
           <div class="fr">
-            <button>添加</button>
+            <router-link to="/Environment/Compliance">添加</router-link>
           </div>
         </div>
         <div class="content clear">
@@ -89,12 +89,41 @@
           </div>
         </div>
       </div>
-
+        <div class="item item4">
+        <div class="item-title clear">
+          <i></i>
+          <span class="tittle fl">Test</span>
+          <div class="fr">
+            <router-link to="/Environment/Compliance">添加</router-link>
+          </div>
+        </div>
+        <div class="content clear">
+          <div class="codeInfo">
+            <div class="infoItem Management clear">
+              <div class="info-title">
+                <ul>
+                  <li>Name</li>
+                  <li>Creater</li>
+                  <li>Enable</li>
+                </ul>
+              </div>
+              <div class="p-team-info">
+                <ul class="fl">
+                  <li>GitLab</li>
+                  <li>Administrator</li>
+                  <li class="is_default">is_default</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+    <router-view></router-view>
     <div class="anchor">
       <el-row class="tac">
         <el-col>
-          <el-menu default-active="2" class="el-menu-vertical-demo">
+          <el-menu :default-active="active" class="el-menu-vertical-demo">
             <el-menu-item class="menu-title"  @click="jump(index)" :index="index.toString()" :key="index" v-for="(item,index) in titles">
               <a slot="title" >{{item}}</a>
             </el-menu-item>
@@ -111,7 +140,8 @@
     data() {
       return {
         titles: ["Code", "Compile", "Compliance", "Test"],
-        scrollTop: ''
+        scrollTop: '',
+        active: '0'
       }
     },
     created: function () {
@@ -125,7 +155,11 @@
         }
       ]
     },
-    mounted: function () {
+    created: function () {
+        this.$nextTick(function(){
+            window.addEventListener('scroll',this.onScroll,true)
+            console.log(1)
+        })
         // this.$axios({
         //   method: 'POST',
         //   url: 'api/ciapp-server/dict/type_TOOLS_TYPE'
@@ -138,10 +172,10 @@
       jump(index) {
         let jump = document.querySelectorAll('.item')
         // 获取需要滚动的距离
-        let total = jump[index].offsetTop - 70;
+        let total = jump[index].offsetTop - 20;
         // document.getElementsByClassName('el-main main')[0].scrollTop = total
         let distance = document.getElementsByClassName('el-main main')[0].scrollTop
-        let step = total / 50
+        let step = total / 10
         if(total>distance){
             smoothDown()
         }else{
@@ -168,6 +202,19 @@
           }
        } 
       },
+      onScroll(){
+        let scrolled = document.getElementsByClassName('el-main main')[0].scrollTop
+        console.log(scrolled)
+        if (scrolled >= 1928) {
+            this.active = '3'
+        } else if (scrolled >= 1268) {
+            this.active = '2'
+        } else if (scrolled < 1368 && scrolled >= 605) {
+            this.active = '1'
+        } else {
+            this.active = '0'
+        }
+      }
     }
   }
 </script>
