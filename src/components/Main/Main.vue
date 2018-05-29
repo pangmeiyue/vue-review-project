@@ -271,7 +271,9 @@
 
   
   .captionBar {
-    position:absolute;
+    // position:absolute;
+    position: fixed;
+    z-index: 999;
     width:100%;
     background-color:#f7f7f7;
     color:#707070;

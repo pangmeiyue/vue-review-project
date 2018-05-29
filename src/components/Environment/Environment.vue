@@ -145,17 +145,14 @@
       }
     },
     created: function () {
-      cicd.captionBar.caption = [{
+        cicd.captionBar.caption = [{
           text: "Configure Manage",
           url: ""
         },
         {
           text: " System Configure",
           url: "/Environment"
-        }
-      ]
-    },
-    created: function () {
+        }]
         this.$nextTick(function(){
             window.addEventListener('scroll',this.onScroll,true)
             console.log(1)
@@ -172,7 +169,7 @@
       jump(index) {
         let jump = document.querySelectorAll('.item')
         // 获取需要滚动的距离
-        let total = jump[index].offsetTop - 20;
+        let total = jump[index].offsetTop -50;
         // document.getElementsByClassName('el-main main')[0].scrollTop = total
         let distance = document.getElementsByClassName('el-main main')[0].scrollTop
         let step = total / 10
@@ -204,7 +201,6 @@
       },
       onScroll(){
         let scrolled = document.getElementsByClassName('el-main main')[0].scrollTop
-        console.log(scrolled)
         if (scrolled >= 1928) {
             this.active = '3'
         } else if (scrolled >= 1268) {
