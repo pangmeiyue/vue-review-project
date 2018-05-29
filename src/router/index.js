@@ -35,13 +35,12 @@ export default new Router({
           { 
             path: "/Environment",
             component: Environment,
-            children:[
-              { path: "/Environment/Code", component: Code },
-              { path: "/Environment/Compile", component: Compile },
-              { path: "/Environment/Compliance", component: Compliance },
-              { path: "/Environment/Test", component: Test }
-            ]
-          }
+          
+          },
+          { path: "/Code", component: Code },
+          { path: "/Compile", component: Compile },
+          { path: "/Compliance", component: Compliance },
+          { path: "/Test", component: Test }
       ],
     }
   ]

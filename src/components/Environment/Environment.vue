@@ -7,7 +7,7 @@
           <font class="iconfont icon-compiled1"></font>
           <span class="tittle fl">Code</span>
           <div class="fr">
-            <router-link to="/Environment/Code">添加</router-link>
+            <router-link to="/Code">添加</router-link>
           </div>
         </div>
         <div class="content clear">
@@ -36,7 +36,7 @@
           <i></i>
           <span class="tittle fl">Compile</span>
           <div class="fr">
-            <router-link to="/Environment/Compile">添加</router-link>
+            <router-link to="/Compile">添加</router-link>
           </div>
         </div>
         <div class="content clear">
@@ -65,7 +65,7 @@
           <i></i>
           <span class="tittle fl">Compliance</span>
           <div class="fr">
-            <router-link to="/Environment/Compliance">添加</router-link>
+            <router-link to="/Compliance">添加</router-link>
           </div>
         </div>
         <div class="content clear">
@@ -94,7 +94,7 @@
           <i></i>
           <span class="tittle fl">Test</span>
           <div class="fr">
-            <router-link to="/Environment/Compliance">添加</router-link>
+            <router-link to="/Test">添加</router-link>
           </div>
         </div>
         <div class="content clear">
