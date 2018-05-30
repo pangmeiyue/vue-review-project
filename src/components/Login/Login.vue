@@ -259,17 +259,17 @@
 
       created:function(){
 
-            axios.interceptors.request.use(function (config) {
+            // axios.interceptors.request.use(function (config) {
                 
-                let  token = "aaa",
-                     loginId = "bbb";
-                config.headers['Token'] = token;
+            //     let  token = "aaa",
+            //          loginId = "bbb";
+            //     config.headers['Token'] = token;
                
-                return config;
-            }, function (error) {
-                // 当请求异常时做一些处理
-                return Promise.reject(error);
-            });
+            //     return config;
+            // }, function (error) {
+            //     // 当请求异常时做一些处理
+            //     return Promise.reject(error);
+            // });
       },
 
       mounted:function(){
@@ -291,7 +291,7 @@
             //  提交数据
             axios({
                 method: 'post',
-                url: '/api/group.php',
+                url: '/api/login',
                 //    必不可少，修改数据的提交方式
                 headers : {
                     "Content-Type":'application/x-www-form-urlencoded; charset=UTF-8'
