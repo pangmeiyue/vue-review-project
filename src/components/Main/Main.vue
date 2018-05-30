@@ -317,26 +317,6 @@
           self.menuData = JSON.parse(menuDataJSON);
         },500)
         /*--菜单数据模拟结束--*/
-
-
-        // var data =  qs.stringify({
-        //     username:"admin",
-        //     password:"Pass2017"
-        // });
-        // //  提交数据
-        // axios({
-        //       method: 'post',
-        //       url: '/api/login',
-        //       //    必不可少，修改数据的提交方式
-        //       headers : {
-        //           "Content-Type":'application/x-www-form-urlencoded; charset=UTF-8'
-        //       },
-        //       data
-        // }).then(function (response) {
-
-        //   self.menuData = response.data;
-        //   console.log(response,"ggg");
-        // });
       },
 
       mounted:function(){

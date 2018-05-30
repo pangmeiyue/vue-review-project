@@ -33,20 +33,21 @@
                     <div class="inputWrap">
                         <div class="login_label clear-float">
                             <i class="iconfont icon-yonghu">&#xe61e;</i> <span class="separator">|</span>
-                            <input id="" name="username" placeholder="Please enter your name" type="text">
+                            <input id=""  name="username" placeholder="Please enter your name" type="text">
                         </div>
                     </div>
 
                     <div class="inputWrap">
-						<div class="login_label clear-float">
-							<i class="iconfont icon-mima">&#xe61d;</i> <span class="separator">|</span>
-							<input id="" name="password" placeholder="Please enter your password" type="password">
-						</div>
-					</div>
+                        <div class="login_label clear-float">
+                            <i class="iconfont icon-mima">&#xe61d;</i> <span class="separator">|</span>
+                            <input id=""   name="password" placeholder="Please enter your password" type="password">
+                        </div>
+                    </div>
 
                     <div style="text-align: center;">
-						<input class="button" style="width: 100%; height: 50px;" type="submit" value="Sign in">
-					</div>
+                        <input class="button" v-on:click="submitLogin" style="width: 100%; height: 50px;" value="Sign in">
+                    </div>
+
                 </el-main>
             
             </el-container>
@@ -241,6 +242,12 @@
 
 <script>
 
+    import Vue from 'vue'
+    import axios from 'axios'
+    import qs from 'qs'
+
+    // import $ from 'jquery' 
+
     export default {
       name: 'Environment',
 
@@ -251,11 +258,18 @@
       },
 
       created:function(){
-        
-          cicd.captionBar.caption = [
-              {text:"Configure Manage",url:""},
-              {text:" System Configure",url:"/Environment"}
-          ]
+
+            axios.interceptors.request.use(function (config) {
+                
+                let  token = "aaa",
+                     loginId = "bbb";
+                config.headers['Token'] = token;
+               
+                return config;
+            }, function (error) {
+                // 当请求异常时做一些处理
+                return Promise.reject(error);
+            });
       },
 
       mounted:function(){
@@ -263,7 +277,28 @@
       },
 
       methods: {
- 
+        submitLogin:function() {
+
+            // axios.post('http://192.168.1.223:18000/login',{
+            //     username:"admin",
+            //     password:"Pass2017"
+            // })
+
+            var data =  qs.stringify({
+                username: 'admin',
+                password: 'Password'
+            });
+            //  提交数据
+            axios({
+                method: 'post',
+                url: '/api/group.php',
+                //    必不可少，修改数据的提交方式
+                headers : {
+                    "Content-Type":'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                data
+            });
+        }
       }
     }
 </script>
