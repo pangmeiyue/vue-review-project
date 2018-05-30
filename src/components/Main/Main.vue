@@ -285,6 +285,7 @@
   .Router {
     margin-top:50px;
     padding-left:15px;
+    padding-right:15px;
   }
 </style>
 

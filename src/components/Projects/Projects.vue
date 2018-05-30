@@ -18,6 +18,7 @@
                     <td>1111</td>
                     <td>1111</td>
                 </tr>
+
             </tbody>
         </table> -->
 
@@ -29,33 +30,17 @@
         >
         <el-table-column
             prop="date"
-            label="Domain"
-            width="220">
+            label="日期"
+            width="180">
         </el-table-column>
         <el-table-column
             prop="name"
-            label="System"
-            width="220">
+            label="姓名"
+            width="180">
         </el-table-column>
         <el-table-column
             prop="address"
-            label="Creator"
-            width="220">
-        </el-table-column>
-        <el-table-column
-            prop="name"
-            label="Remark">
-        </el-table-column>
-        <el-table-column
-            prop="take"
-            label="Operating" 
-            v-html="take"
-            width="180">
-           <template slot-scope="scope">
-                <i class="el-icon-edit-outline"></i>
-                <i class="el-icon-tickets"></i>
-                <i class="iconfont icon-detail"></i>
-            </template>
+            label="地址">
         </el-table-column>
         </el-table>
     </div>
@@ -68,27 +53,22 @@
 
       data(){
           return {
-            take:'<i class="iconfont  icon-detail taskEntrance" value="132"></i><i class="iconfont icon-more active"></i>',
             tableData: [{
                 date: '2016-05-02',
                 name: '王小虎',
-                address: '上海市普陀区金沙江路 1518 弄',
-                take:'<i class="iconfont  icon-detail taskEntrance" value="132"></i><i class="iconfont icon-more active"></i>'
+                address: '上海市普陀区金沙江路 1518 弄'
             }, {
                 date: '2016-05-04',
                 name: '王小虎',
-                address: '上海市普陀区金沙江路 1111 弄',
-                take:'<i class="iconfont  icon-detail taskEntrance" value="132"></i><i class="iconfont icon-more active"></i>'
+                address: '上海市普陀区金沙江路 1517 弄'
             }, {
                 date: '2016-05-01',
                 name: '王小虎',
-                address: '上海市普陀区金沙江路 1519 弄',
-                take:'<i class="iconfont  icon-detail taskEntrance" value="132"></i><i class="iconfont icon-more active"></i>'
+                address: '上海市普陀区金沙江路 1519 弄'
             }, {
                 date: '2016-05-03',
                 name: '王小虎',
-                address: '上海市普陀区金沙江路 1516 弄',
-                take:'<i class="iconfont  icon-detail taskEntrance" value="132"></i><i class="iconfont icon-more active"></i>'
+                address: '上海市普陀区金沙江路 1516 弄'
             }]
           }
       },
@@ -96,8 +76,8 @@
       created:function(){
          
         cicd.captionBar.caption = [
-            {text:"Configure Manage",url:""},
-            {text:"Project List",url:"/Projects"}
+            {key:1,text:"Configure Manage",url:""},
+            {key:2,text:"Project List",url:"/Projects"}
         ]
       },
 
@@ -116,46 +96,11 @@
         width: 100%;
         height: 100%;
         padding: 30px 35px;
-    }
-    #projects .el-table td{
-        border-bottom: 0;
-        height: 55px;
-        border-bottom: 10px solid #f7f7f7;
-    }
-    #projects .el-table tr{
-        height: 55px;
-    }
-    #projects  .el-table th.is-leaf{
-        background: #f7f7f7;
-    }
-    #projects .has-gutter{
-         height: 50px;
-        background: #f7f7f7;
-
-    }
-    #projects .el-table .cell{
-        /* padding: 4px; */
-        height: 31px;
-        line-height: 31px;
-    }
-    #projects table i:hover {
-        background-color: #fff;
-    }
-    #projects table i {
-        /* display: inline-block; */
-        width: 28px;
-        height: 28px;
-        font-size: 20px;
-        color: #666;
-        text-align: center;
-        line-height: 28px;
-        font-size: 12px;
-        transition: all 0.5s;
-        border-radius: 50%;
-        margin-right: 10px;
-        transition: all 0.5s;
-        line-height: 31px;
+        
     }
     
+     #projects .el-table td, .el-table th.is-leaf{
+        border-bottom: 0;
+    }
    
 </style>
