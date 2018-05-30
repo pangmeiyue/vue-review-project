@@ -47,6 +47,7 @@
   }
 
   .container-top-left {
+    position:relative;
     width:249px;
     height:398px;
     border:1px solid #dbdde5;
