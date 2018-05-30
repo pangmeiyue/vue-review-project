@@ -192,7 +192,7 @@
     .code_form_foot{
         width: 25%;
         height: 80px;
-        margin: 20px auto;
+        margin: 21px auto;
     }
 
 }
