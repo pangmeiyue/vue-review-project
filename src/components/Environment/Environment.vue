@@ -219,6 +219,7 @@
     margin-left: 20px;
     margin-right: 15px;
     height: 100%;
+    width: 100%;
     padding-top: 20px;
     .content-info {
       width: 83%;

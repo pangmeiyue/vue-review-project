@@ -95,7 +95,11 @@
           cicd.captionBar.caption = [
               {key:3,text:"Configure Manage",url:""},
               {key:4,text:"Project Configure",url:"/Compile"}
-          ]
+          ],
+          this.$nextTick(function () {
+            let scroll = document.getElementsByClassName('el-main main')[0].scrollTop
+            document.getElementsByClassName('el-main main')[0].scrollTop = 0
+        })
       },
 
       mounted:function(){
