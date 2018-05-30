@@ -3,54 +3,64 @@
        <h3>Create Code Bank Tool</h3>
        <div class="code_form">
            <div class="code_from_cont">
-                <el-form ref="form" :model="form" label-width="80px">
-                <el-form-item label="活动名称">
-                    <el-input v-model="form.name"></el-input>
-                </el-form-item>
-                <el-form-item label="活动区域">
-                    <el-select v-model="form.region" placeholder="请选择活动区域">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
+                <el-form ref="form" :model="form" label-width="130px" :rules="rules">
+                <el-form-item label="Name" prop="name">
+                    <el-select v-model="form.name" placeholder="choose">
+                    <el-option label="GitLab" value="GitLab"></el-option>
+                    <el-option label="GitHub" value="GitHub"></el-option>
                     </el-select>
+                    
                 </el-form-item>
-                <el-form-item label="活动时间">
-                    <el-col :span="11">
-                    <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
+                <el-form-item label="User Name" prop="usename">
+                    <el-input v-model="form.usename"></el-input>
+                </el-form-item>
+                 <el-form-item label="Password" prop="password">
+                    <el-input v-model="form.password"></el-input>
+                </el-form-item>
+                 <el-form-item label="Address" prop="address">
+                    <el-input v-model="form.address"></el-input>
+                </el-form-item>
+                <template scope>
+                    <div class="advanced">
+                        <div class="advanced-set clearfix">
+                            <span class="fl"></span>
+                            <span class="fl"></span>
+                            <a href="javascript:;" class="set">Advanced Settings<i class="iconfont icon-drop-down"></i></a>
+                        </div>
+                    </div>
+                </template>
+                <el-form-item label="Port" prop="port">
+                    <el-input v-model="form.port"></el-input>
+                </el-form-item>
+                 <el-form-item label="Version" prop="version">
+                    <el-input v-model="form.version"></el-input>
+                </el-form-item> 
+                 <el-form-item>
+                    <el-col :span="8">
+                        <el-form-item label="Default" prop="default">
+                            <el-switch v-model="form.default" size="mini"></el-switch>
+                        </el-form-item>
                     </el-col>
-                    <el-col class="line" :span="2">-</el-col>
-                    <el-col :span="11">
-                    <el-time-picker type="fixed-time" placeholder="选择时间" v-model="form.date2" style="width: 100%;"></el-time-picker>
+                    <el-col :span="8">
+                        <el-form-item label="SSL Encrypt" prop="sslencrypt" >
+                            <el-switch v-model="form.sslencrypt" size="mini"></el-switch>
+                        </el-form-item>
                     </el-col>
-                </el-form-item>
-                <el-form-item label="即时配送">
-                    <el-switch v-model="form.delivery"></el-switch>
-                </el-form-item>
-                <el-form-item label="活动性质">
-                    <el-checkbox-group v-model="form.type">
-                    <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
-                    <el-checkbox label="地推活动" name="type"></el-checkbox>
-                    <el-checkbox label="线下主题活动" name="type"></el-checkbox>
-                    <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
-                    </el-checkbox-group>
-                </el-form-item>
-                <el-form-item label="特殊资源">
-                    <el-radio-group v-model="form.resource">
-                    <el-radio label="线上品牌商赞助"></el-radio>
-                    <el-radio label="线下场地免费"></el-radio>
-                    </el-radio-group>
-                </el-form-item>
-                <el-form-item label="活动形式">
-                    <el-input type="textarea" v-model="form.desc"></el-input>
-                </el-form-item>
-                <el-form-item>
-                    <el-button type="primary" @click="onSubmit">立即创建</el-button>
-                    <el-button>取消</el-button>
-                </el-form-item>
+                    <el-col :span="8">
+                        <el-form-item label="Status" prop="status" >
+                            <el-switch v-model="form.status" size="mini"></el-switch>
+                        </el-form-item>
+                    </el-col>
+                 </el-form-item> 
+                
                 </el-form>
+                
            </div>
-          
-
        </div>
+       <div class="code_form_foot">
+            <el-button type="primary" @click="onSubmit">Confirm</el-button>
+            <el-button>Cancel</el-button>
+        </div>
     </div>
 </template>
 
@@ -63,13 +73,30 @@
           return {
             form: {
                 name: '',
-                region: '',
-                date1: '',
-                date2: '',
-                delivery: false,
-                type: [],
-                resource: '',
-                desc: ''
+                usename: '',
+                password: '',
+                address: '',
+                port: '',
+                version: '',
+                default: false,
+                sslencrypt: false,
+                status:true
+              
+            },
+             rules: {
+                name: [
+                    { required: true, message: 'Please Choose Name', trigger: 'change' },
+                ],
+                usename: [
+                    { required: true, message: 'Please Input User Name', trigger: 'blur' }
+                ],
+                password: [
+                    { required: true, message: 'Please Input Password', trigger: 'blur' }
+                ],
+                address: [
+                    { required: true, message: 'Please Input Address', trigger: 'blur' }
+                ],
+                
             }
           }
       },
@@ -119,9 +146,53 @@
         margin: 0 auto;
         background: #fff;
         .code_from_cont{
-            padding: 30px 20px;
+            padding: 40px 20px;
+        }
+      
+        .advanced{
+            width: 98%;
+            height: 30px;
+            padding: 10px 10px;
+        }
+        .advanced-set {
+            margin: 20px 0;
+            text-align: center;
+            position: relative;
+            clear: both;
+            span {
+                display: inline-block;
+                width: 50%;
+                height: 1px;
+                background-color: #ccc;
+                vertical-align: middle;
+            }
+            a {
+                font-family: "PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+                color: #333;
+                display: inline-block;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                -webkit-transform: translate(-50%,-50%);
+                -moz-transform: translate(-50%,-50%);
+                -o-transform: translate(-50%,-50%);
+                -ms-transform: translate(-50%,-50%);
+                transform: translate(-50%,-50%);
+                background-color: #fff;
+                padding: 0 15px;
+                i {
+                    display: inline-block;
+                    font-size: 14px;
+                    margin-left: 10px;
+                }
+            }
         }
 
+    }
+    .code_form_foot{
+        width: 25%;
+        height: 80px;
+        margin: 20px auto;
     }
 
 }
