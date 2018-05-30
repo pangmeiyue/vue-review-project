@@ -142,7 +142,6 @@
         background-color: #fff;
     }
     #projects table i {
-        /* display: inline-block; */
         width: 28px;
         height: 28px;
         font-size: 20px;
