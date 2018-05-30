@@ -9,7 +9,6 @@
                     <el-option label="GitLab" value="GitLab"></el-option>
                     <el-option label="GitHub" value="GitHub"></el-option>
                     </el-select>
-                    
                 </el-form-item>
                 <el-form-item label="User Name" prop="usename">
                     <el-input v-model="form.usename"></el-input>
@@ -25,41 +24,42 @@
                         <div class="advanced-set clearfix">
                             <span class="fl"></span>
                             <span class="fl"></span>
-                            <a href="javascript:;" class="set">Advanced Settings<i class="iconfont icon-drop-down"></i></a>
+                            <a href="javascript:;" class="set" @click="toggleform">Advanced Settings<i  v-bind:class="arrow"></i></a>
                         </div>
                     </div>
                 </template>
-                <el-form-item label="Port" prop="port">
-                    <el-input v-model="form.port"></el-input>
-                </el-form-item>
-                 <el-form-item label="Version" prop="version">
-                    <el-input v-model="form.version"></el-input>
-                </el-form-item> 
-                 <el-form-item>
-                    <el-col :span="8">
-                        <el-form-item label="Default" prop="default">
-                            <el-switch v-model="form.default" size="mini"></el-switch>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                        <el-form-item label="SSL Encrypt" prop="sslencrypt" >
-                            <el-switch v-model="form.sslencrypt" size="mini"></el-switch>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                        <el-form-item label="Status" prop="status" >
-                            <el-switch v-model="form.status" size="mini"></el-switch>
-                        </el-form-item>
-                    </el-col>
-                 </el-form-item> 
-                
+                <div class="advancedform" v-show="ok">
+                    <el-form-item label="Port" prop="port">
+                        <el-input v-model="form.port"></el-input>
+                    </el-form-item>
+                    <el-form-item label="Version" prop="version">
+                        <el-input v-model="form.version"></el-input>
+                    </el-form-item> 
+                    <el-form-item>
+                        <el-col :span="8">
+                            <el-form-item label="Default" prop="default">
+                                <el-switch v-model="form.default" size="mini" active-color="#00653d"></el-switch>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                            <el-form-item label="SSL Encrypt" prop="sslencrypt" >
+                                <el-switch v-model="form.sslencrypt" size="mini"  active-color="#00653d"></el-switch>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="8">
+                            <el-form-item label="Status" prop="status" >
+                                <el-switch v-model="form.status" size="mini"  active-color="#00653d"></el-switch>
+                            </el-form-item>
+                        </el-col>
+                    </el-form-item> 
+                </div>
                 </el-form>
                 
            </div>
        </div>
        <div class="code_form_foot">
-            <el-button type="primary" @click="onSubmit">Confirm</el-button>
-            <el-button>Cancel</el-button>
+            <el-button type="info" @click="onSubmit" plain>Confirm</el-button>
+            <el-button  type="info" plain>Cancel</el-button>
         </div>
     </div>
 </template>
@@ -97,7 +97,9 @@
                     { required: true, message: 'Please Input Address', trigger: 'blur' }
                 ],
                 
-            }
+            },
+            ok:false,
+            arrow:" el-icon-arrow-down"
           }
       },
 
@@ -116,6 +118,19 @@
       methods: {
             onSubmit() {
                 console.log('submit!');
+            },
+            toggleform(){
+                
+                if(this.ok==true){
+                    // 折叠
+                    this.arrow = "el-icon-arrow-down"
+                    this.ok=false
+                }else{
+                    // 展示
+                    this.arrow = "el-icon-arrow-up"
+                    this.ok=true
+                }
+
             }
  
       }
@@ -147,6 +162,10 @@
         background: #fff;
         .code_from_cont{
             padding: 40px 20px;
+            .advancedform{
+                width: 100%;
+                height: 155px;
+            }
         }
       
         .advanced{

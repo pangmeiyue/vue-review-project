@@ -30,25 +30,22 @@
                 <el-form-item>
                     <el-col :span="8">
                         <el-form-item label="Default" prop="default">
-                            <el-switch v-model="form.default" size="mini"></el-switch>
+                            <el-switch v-model="form.default" size="mini"  active-color="#00653d"></el-switch>
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
                         <el-form-item label="Status" prop="status" >
-                            <el-switch v-model="form.status" size="mini"></el-switch>
+                            <el-switch v-model="form.status" size="mini"  active-color="#00653d"></el-switch>
                         </el-form-item>
                     </el-col>
                  </el-form-item> 
-
                 </el-form>
-                
             </div>
         </div>
         <div class="compile_form_foot">
-            <el-button type="primary" @click="onSubmit">Confirm</el-button>
-            <el-button>Cancel</el-button>
+            <el-button type="info" @click="onSubmit" plain>Confirm</el-button>
+            <el-button  type="info" plain>Cancel</el-button>
         </div>
-
     </div>
     
 </template>

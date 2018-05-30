@@ -37,7 +37,21 @@ body{
 body,html{
     height: 100%;
 }
-
+.main section{
+    background: #f7f7f7;
+}
+.main header{
+    background: #eee;
+}
 .el-select{
     margin-left: 50px;
+}
+
+.main .el-table--striped .el-table__body tr.el-table__row--striped.current-row td, 
+.main .el-table__body tr.current-row>td, 
+.mian .el-table__body tr.hover-row.current-row>td, 
+.mian .el-table__body tr.hover-row.el-table__row--striped.current-row>td, 
+.main .el-table__body tr.hover-row.el-table__row--striped>td, 
+.mian .el-table__body tr.hover-row>td{
+    background-color: #efefef;
 }
