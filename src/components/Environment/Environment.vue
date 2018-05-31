@@ -17,12 +17,20 @@
                 <ul :key="key" v-for="(item,key) in codetitle">
                   <li>{{item}}</li>
                 </ul>
-                <div class="p-team-info">
-                  <ul class="fl">
+                <div class="p-team-info clear">
+                  <ul>
                     <li>{{data.code_tool_name}}</li>
                     <li>{{data.create_emp}}</li>
                     <li class="is_default">{{data.status}}</li>
                   </ul>
+                  <div class="infoItemModify fr">
+                    <div class="fr deleteBox">
+                      <i class="el-icon-delete"></i>
+                    </div>
+                    <div class="fr editBox">
+                      <i class="el-icon-edit"></i>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -50,6 +58,14 @@
                     <li>{{data.create_emp}}</li>
                     <li class="is_default">{{data.status}}</li>
                   </ul>
+                   <div class="infoItemModify fr">
+                    <div class="fr deleteBox">
+                      <i class="el-icon-delete"></i>
+                    </div>
+                    <div class="fr editBox">
+                      <i class="el-icon-edit"></i>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -77,6 +93,14 @@
                     <li>{{data.create_emp}}</li>
                     <li class="is_default">{{data.status}}</li>
                   </ul>
+                   <div class="infoItemModify fr">
+                    <div class="fr deleteBox">
+                      <i class="el-icon-delete"></i>
+                    </div>
+                    <div class="fr editBox">
+                      <i class="el-icon-edit"></i>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -91,7 +115,7 @@
             <router-link to="/Test">添加</router-link>
           </div>
         </div>
-         <div class="content clear">
+        <div class="content clear">
           <div class="codeInfo" :key="key" v-for="(data,key) in testDatas">
             <div class="infoItem Management clear">
               <div class="info-title">
@@ -104,6 +128,14 @@
                     <li>{{data.create_emp}}</li>
                     <li class="is_default">{{data.status}}</li>
                   </ul>
+                   <div class="infoItemModify fr">
+                    <div class="fr deleteBox">
+                      <i class="el-icon-delete"></i>
+                    </div>
+                    <div class="fr editBox">
+                      <i class="el-icon-edit"></i>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -113,15 +145,11 @@
     </div>
     <router-view></router-view>
     <div class="anchor">
-      <!-- <el-row class="tac">
-        <el-col> -->
       <el-menu v-if="sidenames.length" :default-active="active" class="side-menu">
         <el-menu-item class="menu-title" @click="jump(index)" :index="(item.type_id).toString()" :key="index" v-for="(item,index) in sidenames">
           <a slot="title">{{item.name}}</a>
         </el-menu-item>
       </el-menu>
-      <!-- </el-col>
-      </el-row> -->
     </div>
   </div>
 </template>
@@ -138,7 +166,8 @@
         codeDatas: [], //code数据
         compliedDatas: [],
         complianceDatas: [],
-        testDatas: []
+        testDatas: [],
+        btnVisible: false
       }
     },
     created: function () {
@@ -231,7 +260,7 @@
           }
         })
       },
-      getCompliedDatas(){
+      getCompliedDatas() {
         this.$axios({
           method: 'POST',
           url: 'api/ciapp-server/systool/build_page_show',
@@ -243,11 +272,11 @@
           if (data.status === 200) {
             this.compliedDatas = data.data.aaData
             console.log(this.compliedDatas)
-            
+
           }
         })
       },
-      getComplianceDatas(){
+      getComplianceDatas() {
         this.$axios({
           method: 'POST',
           url: 'api/ciapp-server/systool/compliance_page_show',
@@ -261,7 +290,7 @@
           }
         })
       },
-      getTestDatas(){
+      getTestDatas() {
         this.$axios({
           method: 'POST',
           url: 'api/ciapp-server/systool/unittest_page_show',
@@ -290,6 +319,21 @@
       width: 83%;
       height: 100%;
       min-width: 860px;
+      .infoItemModify {
+        width: 15%;
+        height: 100%;
+        display: none;
+        i{
+          color: #000;
+          font-size: 18px;
+        }
+        .editBox {
+          margin-right: 20px;
+        }
+      }
+      .infoItem:hover .infoItemModify{
+        display: block;
+      }
       .item {
         padding-bottom: 110px;
         border: 1px solid #ececec;
@@ -330,6 +374,7 @@
       .infoItem {
         width: 100%;
         padding: 28px;
+        box-sizing: border-box;
       }
       .info-title {
         margin-bottom: 20px;
