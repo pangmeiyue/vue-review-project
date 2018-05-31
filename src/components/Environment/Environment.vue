@@ -145,11 +145,15 @@
     </div>
     <router-view></router-view>
     <div class="anchor">
-      <el-menu v-if="sidenames.length" :default-active="active" class="side-menu">
-        <el-menu-item class="menu-title" @click="jump(index)" :index="(item.type_id).toString()" :key="index" v-for="(item,index) in sidenames">
+      <el-row class="tac">
+        <el-col>
+      <el-menu v-if="sidenames.length" :key="index" v-for="(item,index) in sidenames" :default-active="active" class="side-menu">
+        <el-menu-item class="menu-title" @click="jump(index,item.type_id)" :index="(item.type_id).toString()">
           <a slot="title">{{item.name}}</a>
         </el-menu-item>
       </el-menu>
+       </el-col>
+      </el-row>
     </div>
   </div>
 </template>
@@ -160,7 +164,7 @@
     data() {
       return {
         scrollTop: '',
-        active: '0',
+        active: '1',
         sidenames: [], //右侧导航名字
         codetitle: ['Name', 'Creater', 'Enable'],
         codeDatas: [], //code数据
@@ -191,7 +195,7 @@
     },
 
     methods: {
-      jump(index) {
+      jump(index,id) {
         let jump = document.querySelectorAll('.item')
         // 获取需要滚动的距离
         let total = jump[index].offsetTop - 50;
@@ -229,13 +233,13 @@
       onScroll() {
         let scrolled = document.getElementsByClassName('el-main main')[0].scrollTop
         if (scrolled >= 1928) {
-          this.active = '3'
+          this.active = '5'
         } else if (scrolled >= 1268) {
-          this.active = '2'
+          this.active = '3'
         } else if (scrolled < 1368 && scrolled >= 605) {
-          this.active = '1'
+          this.active = '2'
         } else {
-          this.active = '0'
+          this.active = '1'
         }
       },
       getSideNames() {
@@ -271,7 +275,6 @@
         }).then(data => {
           if (data.status === 200) {
             this.compliedDatas = data.data.aaData
-            console.log(this.compliedDatas)
 
           }
         })
