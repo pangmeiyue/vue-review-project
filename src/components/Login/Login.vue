@@ -245,9 +245,7 @@
     import Vue from 'vue'
     import axios from 'axios'
     import qs from 'qs'
-
-    // import $ from 'jquery' 
-
+ 
     export default {
       name: 'Environment',
 
@@ -279,25 +277,24 @@
       methods: {
         submitLogin:function() {
 
-            // axios.post('http://192.168.1.223:18000/login',{
-            //     username:"admin",
-            //     password:"Pass2017"
-            // })
+            axios.post('/api/menuList').then(function (response) {
+                console.log(response,"ggr")
+            })
 
-            var data =  qs.stringify({
-                username: 'admin',
-                password: 'Password'
-            });
-            //  提交数据
-            axios({
-                method: 'post',
-                url: '/api/login',
-                //    必不可少，修改数据的提交方式
-                headers : {
-                    "Content-Type":'application/x-www-form-urlencoded; charset=UTF-8'
-                },
-                data
-            });
+            // var data =  qs.stringify({
+            //     username: 'admin',
+            //     password: 'Password'
+            // });
+            // //  提交数据
+            // axios({
+            //     method: 'post',
+            //     url: 'http://192.168.1.223:18000/menuList',
+            //     //    必不可少，修改数据的提交方式
+            //     headers : {
+            //         "Content-Type":'application/x-www-form-urlencoded; charset=UTF-8'
+            //     },
+            //     data
+            // });
         }
       }
     }
