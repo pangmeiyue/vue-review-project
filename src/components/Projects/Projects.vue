@@ -28,33 +28,35 @@
         size:medium 
         >
         <el-table-column
-            prop="date"
+            prop="uzi_name"
             label="Domain"
             width="220">
         </el-table-column>
         <el-table-column
-            prop="name"
+            prop="prj_name"
             label="System"
             width="220">
         </el-table-column>
         <el-table-column
-            prop="address"
+            prop="create_emp"
             label="Creator"
             width="220">
         </el-table-column>
         <el-table-column
-            prop="name"
+            prop="prj_remark"
             label="Remark">
         </el-table-column>
         <el-table-column
-            prop="take"
+            prop="prj_id"
             label="Operating" 
-            v-html="take"
             width="180">
            <template slot-scope="scope">
-                <i class="el-icon-edit-outline"></i>
-                <i class="el-icon-tickets"></i>
-                <i class="iconfont icon-detail"></i>
+               <span>
+                  
+                   <i class="el-icon-edit-outline"></i>
+                    <i class="el-icon-tickets"></i>
+               </span>
+                
             </template>
         </el-table-column>
         </el-table>
@@ -69,27 +71,52 @@
       data(){
           return {
             take:'<i class="iconfont  icon-detail taskEntrance" value="132"></i><i class="iconfont icon-more active"></i>',
+            show:false,
             tableData: [{
-                date: '2016-05-02',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1518 弄',
-                take:'<i class="iconfont  icon-detail taskEntrance" value="132"></i><i class="iconfont icon-more active"></i>'
-            }, {
-                date: '2016-05-04',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1111 弄',
-                take:'<i class="iconfont  icon-detail taskEntrance" value="132"></i><i class="iconfont icon-more active"></i>'
-            }, {
-                date: '2016-05-01',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1519 弄',
-                take:'<i class="iconfont  icon-detail taskEntrance" value="132"></i><i class="iconfont icon-more active"></i>'
-            }, {
-                date: '2016-05-03',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1516 弄',
-                take:'<i class="iconfont  icon-detail taskEntrance" value="132"></i><i class="iconfont icon-more active"></i>'
-            }]
+                uzi_name: '2016-05-02',
+                prj_name: '王小虎',
+                create_emp: '上海市普陀区金沙江路 1518 弄',
+                prj_remark:'iconfont  icon-detail taskEntrance',
+                prj_id:'21423'
+            }, 
+            {
+                uzi_name: '2016-05-02',
+                prj_name: '王小虎',
+                create_emp: '上海市普陀区金沙江路 1518 弄',
+                prj_remark:'iconfont  icon-detail taskEntrance',
+                prj_id:'22222'
+            }, 
+            {
+                uzi_name: '2016-05-02',
+                prj_name: '王小虎',
+                create_emp: '上海市普陀区金沙江路 1518 弄',
+                prj_remark:'iconfont  icon-detail taskEntrance',
+                prj_id:'333333'
+            }, 
+            {
+                uzi_name: '2016-05-02',
+                prj_name: '王小虎',
+                create_emp: '上海市普陀区金沙江路 1518 弄',
+                prj_remark:'iconfont  icon-detail taskEntrance',
+                prj_id:'4444'
+            },
+            // {
+            //     date: '2016-05-04',
+            //     name: '王小虎',
+            //     address: '上海市普陀区金沙江路 1111 弄',
+            //     take:'<i class="iconfont  icon-detail taskEntrance" value="132"></i><i class="iconfont icon-more active"></i>'
+            // }, {
+            //     date: '2016-05-01',
+            //     name: '王小虎',
+            //     address: '上海市普陀区金沙江路 1519 弄',
+            //     take:'<i class="iconfont  icon-detail taskEntrance" value="132"></i><i class="iconfont icon-more active"></i>'
+            // }, {
+            //     date: '2016-05-03',
+            //     name: '王小虎',
+            //     address: '上海市普陀区金沙江路 1516 弄',
+            //     take:'<i class="iconfont  icon-detail taskEntrance" value="132"></i><i class="iconfont icon-more active"></i>'
+            // }
+            ]
           }
       },
 
@@ -102,11 +129,24 @@
       },
 
       mounted:function(){
+          this.tabledata();
 
       },
 
       methods: {
- 
+          tabledata(){
+               this.$axios({
+                   url:'api/ciapp-server/project/prjIntegration',
+                   method:'POST'
+                })
+                .then(function (response) {
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+          }
+         
       }
     }
 </script>
