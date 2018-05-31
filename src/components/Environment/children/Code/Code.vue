@@ -4,20 +4,26 @@
        <div class="code_form">
            <div class="code_from_cont">
                 <el-form ref="form" :model="form" label-width="130px" :rules="rules">
-                <el-form-item label="Name" prop="name">
-                    <el-select v-model="form.name" placeholder="choose">
-                    <el-option label="GitLab" value="GitLab"></el-option>
-                    <el-option label="GitHub" value="GitHub"></el-option>
+                <el-form-item label="Name" prop="code_tool_name">
+                    <el-select v-model="form.code_tool_name" placeholder="choose">
+                    <!-- <el-option label="GitLab" value="GitLab"></el-option>
+                    <el-option label="GitHub" value="GitHub"></el-option> -->
+                    <el-option
+                            v-for="item in options"
+                            :key="item.value"
+                            :label="item.name"
+                            :value="item.type_id">
+                        </el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="User Name" prop="usename">
-                    <el-input v-model="form.usename"></el-input>
+                <el-form-item label="User Name" prop="code_tool_username">
+                    <el-input v-model="form.code_tool_username"></el-input>
                 </el-form-item>
-                 <el-form-item label="Password" prop="password">
-                    <el-input v-model="form.password"></el-input>
+                 <el-form-item label="Password" prop="code_tool_pwd">
+                    <el-input v-model="form.code_tool_pwd"></el-input>
                 </el-form-item>
-                 <el-form-item label="Address" prop="address">
-                    <el-input v-model="form.address"></el-input>
+                 <el-form-item label="Address" prop="code_tool_host">
+                    <el-input v-model="form.code_tool_host"></el-input>
                 </el-form-item>
                 <template scope>
                     <div class="advanced">
@@ -29,21 +35,21 @@
                     </div>
                 </template>
                 <div class="advancedform" v-show="ok">
-                    <el-form-item label="Port" prop="port">
-                        <el-input v-model="form.port"></el-input>
+                    <el-form-item label="Port" prop="code_tool_port">
+                        <el-input v-model="form.code_tool_port"></el-input>
                     </el-form-item>
-                    <el-form-item label="Version" prop="version">
-                        <el-input v-model="form.version"></el-input>
+                    <el-form-item label="Version" prop="code_tool_version">
+                        <el-input v-model="form.code_tool_version"></el-input>
                     </el-form-item> 
                     <el-form-item>
                         <el-col :span="8">
-                            <el-form-item label="Default" prop="default">
-                                <el-switch v-model="form.default" size="mini" active-color="#00653d"></el-switch>
+                            <el-form-item label="Default" prop="is_default">
+                                <el-switch v-model="form.is_default" size="mini" active-color="#00653d"></el-switch>
                             </el-form-item>
                         </el-col>
                         <el-col :span="8">
-                            <el-form-item label="SSL Encrypt" prop="sslencrypt" >
-                                <el-switch v-model="form.sslencrypt" size="mini"  active-color="#00653d"></el-switch>
+                            <el-form-item label="SSL Encrypt" prop="is_ssl" >
+                                <el-switch v-model="form.is_ssl" size="mini"  active-color="#00653d"></el-switch>
                             </el-form-item>
                         </el-col>
                         <el-col :span="8">
@@ -71,29 +77,30 @@
 
       data(){
           return {
+            options:{},
             form: {
-                name: '',
-                usename: '',
-                password: '',
-                address: '',
-                port: '',
-                version: '',
-                default: false,
-                sslencrypt: false,
+                code_tool_name: '',
+                code_tool_username: '',
+                code_tool_pwd: '',
+                code_tool_host: '',
+                code_tool_port: '',
+                code_tool_version: '',
+                is_default: false,
+                is_ssl: false,
                 status:true
               
             },
              rules: {
-                name: [
+                code_tool_name: [
                     { required: true, message: 'Please Choose Name', trigger: 'change' },
                 ],
-                usename: [
+                code_tool_username: [
                     { required: true, message: 'Please Input User Name', trigger: 'blur' }
                 ],
-                password: [
+                code_tool_pwd: [
                     { required: true, message: 'Please Input Password', trigger: 'blur' }
                 ],
-                address: [
+                code_tool_host: [
                     { required: true, message: 'Please Input Address', trigger: 'blur' }
                 ],
                 
@@ -104,7 +111,7 @@
       },
 
       created:function(){
-         
+         this.selects()
           cicd.captionBar.caption = [
               {key:3,text:"Configure Manage",url:""},
               {key:4,text:"Project Configure",url:"/Code"}
@@ -120,19 +127,39 @@
       },
 
       methods: {
+           selects(){
+                 let _this = this
+                this.$axios({
+                   url:'api/ciapp-server/dict/typeTool_1',
+                   method:'POST',
+                })
+                .then(function (response) {  
+                    console.log(response)
+                    _this.options = response.data
+                })
+            },
             onSubmit() {
+                let _this = this
+                this.form.is_default = false ? 0 :1;
+                this.form.is_ssl = false ? 0 :1;
+                this.form.status = false ? 0 :1;
+
                 this.$axios({
                    url:'api/ciapp-server/systool/code_merge',
                    method:'POST',
                    data:this.form,
                 })
-                .then(function (response) {     
-                     console.log(response);
+                .then(function (response) {    
+                     if(response.data.success == true){
+                         _this.success(response.data.message)
+                     }else{
+                         debugger
+                        _this.warning(response.data.message)
+                     }
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    _this.err(error)
                 })
-                console.log('submit!',this.form);
             },
             toggleform(){
                 
@@ -146,8 +173,38 @@
                     this.ok=true
                 }
 
+            },
+            msg(msg) {
+                this.$message({
+                    showClose: true,
+                    message: msg
+                });
+            },
+            success(msg) {
+               this.$message({
+                    showClose: true,
+                    message: msg,
+                    type: 'success'
+                });
+            },
+
+            warning(msg) {
+                this.$message({
+                    showClose: true,
+                    message: msg,
+                    type: 'warning'
+                });
+            },
+
+            err(msg) {
+              this.$message({
+                    showClose: true,
+                    message: msg,
+                    type: 'error'
+                });
             }
- 
+
+        
       }
     }
 </script>
