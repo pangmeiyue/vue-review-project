@@ -47,7 +47,7 @@
           </el-aside>
 
           <!--定义内容区-->
-          <el-main class="pos-rel pd-none">
+          <el-main class="pos-rel pd-none main">
 
             <!--内容区头部-->    
             <el-header height="44px" class="main-header captionBar">
