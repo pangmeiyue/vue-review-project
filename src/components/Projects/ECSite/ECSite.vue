@@ -232,12 +232,15 @@
 
     data() {
       return {
-        
+        prj:{}
       }
     },
 
     created: function () {
-
+      this.$axios.post('/api/ciapp-server/taskview/prjview'+this.$route.query.id).then(function (res) {
+          self.menuData = res.data;
+      })
+        
     },
 
     mounted: function () {
