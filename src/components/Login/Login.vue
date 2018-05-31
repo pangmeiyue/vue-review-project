@@ -241,8 +241,6 @@
 <script>
 
     import Vue from 'vue'
-    import axios from 'axios'
-    import qs from 'qs'
  
     export default {
       name: 'Environment',
@@ -262,11 +260,9 @@
       },
 
       methods: {
-        submitLogin:()=> {
+        submitLogin(){
 
-            axios.post('/api/menuList').then(function (response) {
-                console.log(response,"ggr")
-            })
+          this.$router.push({ path: '/Projects'});
         }
       }
     }
