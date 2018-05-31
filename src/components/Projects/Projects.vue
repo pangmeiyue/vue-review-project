@@ -52,11 +52,9 @@
             width="180">
            <template slot-scope="scope">
                <span>
-                  
-                   <i class="el-icon-edit-outline"></i>
-                    <i class="el-icon-tickets"></i>
+                   <i class="el-icon-edit-outline" @click="tap(scope.row.prj_id)"></i>
+                    <router-link tag="i"  :to="{path:'/Projects/EC',query: {name: scope.row.prj_id}}" class="el-icon-tickets"></router-link>
                </span>
-                
             </template>
         </el-table-column>
         </el-table>
@@ -72,51 +70,8 @@
           return {
             take:'<i class="iconfont  icon-detail taskEntrance" value="132"></i><i class="iconfont icon-more active"></i>',
             show:false,
-            tableData: [{
-                uzi_name: '2016-05-02',
-                prj_name: '王小虎',
-                create_emp: '上海市普陀区金沙江路 1518 弄',
-                prj_remark:'iconfont  icon-detail taskEntrance',
-                prj_id:'21423'
-            }, 
-            {
-                uzi_name: '2016-05-02',
-                prj_name: '王小虎',
-                create_emp: '上海市普陀区金沙江路 1518 弄',
-                prj_remark:'iconfont  icon-detail taskEntrance',
-                prj_id:'22222'
-            }, 
-            {
-                uzi_name: '2016-05-02',
-                prj_name: '王小虎',
-                create_emp: '上海市普陀区金沙江路 1518 弄',
-                prj_remark:'iconfont  icon-detail taskEntrance',
-                prj_id:'333333'
-            }, 
-            {
-                uzi_name: '2016-05-02',
-                prj_name: '王小虎',
-                create_emp: '上海市普陀区金沙江路 1518 弄',
-                prj_remark:'iconfont  icon-detail taskEntrance',
-                prj_id:'4444'
-            },
-            // {
-            //     date: '2016-05-04',
-            //     name: '王小虎',
-            //     address: '上海市普陀区金沙江路 1111 弄',
-            //     take:'<i class="iconfont  icon-detail taskEntrance" value="132"></i><i class="iconfont icon-more active"></i>'
-            // }, {
-            //     date: '2016-05-01',
-            //     name: '王小虎',
-            //     address: '上海市普陀区金沙江路 1519 弄',
-            //     take:'<i class="iconfont  icon-detail taskEntrance" value="132"></i><i class="iconfont icon-more active"></i>'
-            // }, {
-            //     date: '2016-05-03',
-            //     name: '王小虎',
-            //     address: '上海市普陀区金沙江路 1516 弄',
-            //     take:'<i class="iconfont  icon-detail taskEntrance" value="132"></i><i class="iconfont icon-more active"></i>'
-            // }
-            ]
+            tableData: [],
+            props: ['id'],
           }
       },
 
@@ -129,23 +84,27 @@
       },
 
       mounted:function(){
-          this.tabledata();
-
+           this.tabledata();
       },
 
       methods: {
           tabledata(){
+              let _this = this
                this.$axios({
                    url:'api/ciapp-server/project/prjIntegration',
                    method:'POST'
                 })
                 .then(function (response) {
-                    console.log(response);
+                     _this.tableData = response.data;                      
                 })
                 .catch(function (error) {
                     console.log(error);
                 })
-          }
+          },
+          tap(data){
+            console.log('1221',data)
+        }
+         
          
       }
     }
