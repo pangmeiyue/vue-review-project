@@ -23,18 +23,22 @@
                 <img class="w50ps" src="../../../assets/icon_project-management.png" alt="" />
               </li>
               <li class="tmd color-black fs-17">
-                Application Assets Platform
+                {{prj.prj_name}}
               </li>
               <li class="color-88 fs-13 tmd mt-30">
                 <i class="iconfont">&#xe61c;</i>&nbsp;&nbsp;
                 <span>Create time</span>&nbsp;&nbsp;
-                <span class="color-black">2018-03-09</span>
+                <span class="color-black">
+                  {{prj.create_time}}
+                </span>
               </li>
 
               <li class="color-88 fs-13 tmd mt-15">
                 <i class="iconfont">&#xe658;</i>&nbsp;&nbsp;
                 <span>Founder</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                <span class="color-black pos-rel left-15">Administrator</span>
+                <span class="color-black pos-rel left-15">
+                  {{prj.create_user}}
+                </span>
               </li>
             </ol>
           </div>
@@ -237,8 +241,9 @@
     },
 
     created: function () {
-      this.$axios.post('/api/ciapp-server/taskview/prjview'+this.$route.query.id).then(function (res) {
-          self.menuData = res.data;
+      var self = this;
+      this.$axios.post('/api/ciapp-server/taskview/prjview_'+this.$route.query.name).then(function (res) {
+          self.prj = res.data;
       })
         
     },

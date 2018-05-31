@@ -62,7 +62,7 @@
       
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
   @font-face {
         font-family: 'iconfont';
