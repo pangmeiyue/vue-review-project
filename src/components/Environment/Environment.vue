@@ -313,7 +313,8 @@
 </script>
 <style scoped lang="scss">
   .main-content {
-    margin-left: 20px;
+    padding-left: 30px;
+    box-sizing: border-box;
     margin-right: 15px;
     height: 100%;
     width: 100%;
