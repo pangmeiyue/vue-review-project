@@ -26,10 +26,10 @@
             <el-input v-model="form.password"></el-input>
           </el-form-item>
           <el-form-item class="default" label="Default">
-            <el-switch v-model="form.default"></el-switch>
+            <el-switch v-model="form.default" active-color="#00653d"></el-switch>
           </el-form-item>
           <el-form-item class="status" label="Status">
-            <el-switch v-model="form.status"></el-switch>
+            <el-switch v-model="form.status" active-color="#00653d"></el-switch>
           </el-form-item>
           <el-form-item class="button-content">
             <el-button @click="onSubmit">Confirm</el-button>
@@ -55,8 +55,8 @@
           address: '',
           username: '',
           password: '',
-          default: '',
-          status: '',
+          default: false,
+          status: true,
           region: '',
           date1: '',
           date2: '',

@@ -1,4 +1,4 @@
- <template>
+<template>
   <div class="main-content" :scrollTop.prop="scrollTop">
     <!-- Environment -->
     <div class="content-info" id="content-info">
@@ -11,21 +11,19 @@
           </div>
         </div>
         <div class="content clear">
-          <div class="codeInfo">
+          <div class="codeInfo" :key="key" v-for="(data,key) in codeDatas">
             <div class="infoItem Management clear">
               <div class="info-title">
-                <ul>
-                  <li>Name</li>
-                  <li>Creater</li>
-                  <li>Enable</li>
+                <ul :key="key" v-for="(item,key) in codetitle">
+                  <li>{{item}}</li>
                 </ul>
-              </div>
-              <div class="p-team-info">
-                <ul class="fl">
-                  <li>GitLab</li>
-                  <li>Administrator</li>
-                  <li class="is_default">is_default</li>
-                </ul>
+                <div class="p-team-info">
+                  <ul class="fl">
+                    <li>{{data.code_tool_name}}</li>
+                    <li>{{data.create_emp}}</li>
+                    <li class="is_default">{{data.status}}</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -40,21 +38,19 @@
           </div>
         </div>
         <div class="content clear">
-          <div class="codeInfo">
+          <div class="codeInfo" :key="key" v-for="(data,key) in compliedDatas">
             <div class="infoItem Management clear">
               <div class="info-title">
-                <ul>
-                  <li>Name</li>
-                  <li>Creater</li>
-                  <li>Enable</li>
+                <ul :key="key" v-for="(item,key) in codetitle">
+                  <li>{{item}}</li>
                 </ul>
-              </div>
-              <div class="p-team-info">
-                <ul class="fl">
-                  <li>GitLab</li>
-                  <li>Administrator</li>
-                  <li class="is_default">is_default</li>
-                </ul>
+                <div class="p-team-info">
+                  <ul class="fl">
+                    <li>{{data.build_name}}</li>
+                    <li>{{data.create_emp}}</li>
+                    <li class="is_default">{{data.status}}</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -69,27 +65,25 @@
           </div>
         </div>
         <div class="content clear">
-          <div class="codeInfo">
+          <div class="codeInfo" :key="key" v-for="(data,key) in complianceDatas">
             <div class="infoItem Management clear">
               <div class="info-title">
-                <ul>
-                  <li>Name</li>
-                  <li>Creater</li>
-                  <li>Enable</li>
+                <ul :key="key" v-for="(item,key) in codetitle">
+                  <li>{{item}}</li>
                 </ul>
-              </div>
-              <div class="p-team-info">
-                <ul class="fl">
-                  <li>GitLab</li>
-                  <li>Administrator</li>
-                  <li class="is_default">is_default</li>
-                </ul>
+                <div class="p-team-info">
+                  <ul class="fl">
+                    <li>{{data.build_name}}</li>
+                    <li>{{data.create_emp}}</li>
+                    <li class="is_default">{{data.status}}</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-        <div class="item item4">
+      <div class="item item4">
         <div class="item-title clear">
           <i></i>
           <span class="tittle fl">Test</span>
@@ -97,22 +91,20 @@
             <router-link to="/Test">添加</router-link>
           </div>
         </div>
-        <div class="content clear">
-          <div class="codeInfo">
+         <div class="content clear">
+          <div class="codeInfo" :key="key" v-for="(data,key) in testDatas">
             <div class="infoItem Management clear">
               <div class="info-title">
-                <ul>
-                  <li>Name</li>
-                  <li>Creater</li>
-                  <li>Enable</li>
+                <ul :key="key" v-for="(item,key) in codetitle">
+                  <li>{{item}}</li>
                 </ul>
-              </div>
-              <div class="p-team-info">
-                <ul class="fl">
-                  <li>GitLab</li>
-                  <li>Administrator</li>
-                  <li class="is_default">is_default</li>
-                </ul>
+                <div class="p-team-info">
+                  <ul class="fl">
+                    <li>{{data.unittest_name}}</li>
+                    <li>{{data.create_emp}}</li>
+                    <li class="is_default">{{data.status}}</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -121,15 +113,15 @@
     </div>
     <router-view></router-view>
     <div class="anchor">
-      <el-row class="tac">
-        <el-col>
-          <el-menu :default-active="active" class="el-menu-vertical-demo">
-            <el-menu-item class="menu-title"  @click="jump(index)" :index="index.toString()" :key="index" v-for="(item,index) in titles">
-              <a slot="title" >{{item}}</a>
-            </el-menu-item>
-          </el-menu>
-        </el-col>
-      </el-row>
+      <!-- <el-row class="tac">
+        <el-col> -->
+      <el-menu v-if="sidenames.length" :default-active="active" class="side-menu">
+        <el-menu-item class="menu-title" @click="jump(index)" :index="(item.type_id).toString()" :key="index" v-for="(item,index) in sidenames">
+          <a slot="title">{{item.name}}</a>
+        </el-menu-item>
+      </el-menu>
+      <!-- </el-col>
+      </el-row> -->
     </div>
   </div>
 </template>
@@ -139,80 +131,153 @@
     name: 'Environment',
     data() {
       return {
-        titles: ["Code", "Compile", "Compliance", "Test"],
         scrollTop: '',
-        active: '0'
+        active: '0',
+        sidenames: [], //右侧导航名字
+        codetitle: ['Name', 'Creater', 'Enable'],
+        codeDatas: [], //code数据
+        compliedDatas: [],
+        complianceDatas: [],
+        testDatas: []
       }
     },
     created: function () {
-        cicd.captionBar.caption = [{
+      cicd.captionBar.caption = [{
           text: "Configure Manage",
           url: ""
         },
         {
           text: " System Configure",
           url: "/Environment"
-        }]
-        this.$nextTick(function(){
-            window.addEventListener('scroll',this.onScroll,true)
-            console.log(1)
-        })
-        // this.$axios({
-        //   method: 'POST',
-        //   url: 'api/ciapp-server/dict/type_TOOLS_TYPE'
-        // }).then(data => {
-        //   console.log(data)
-        // })
+        }
+      ]
+      this.$nextTick(function () {
+        window.addEventListener('scroll', this.onScroll, true)
+      })
+      this.getSideNames() //右侧导航
+      this.getCodeDatas()
+      this.getCompliedDatas()
+      this.getComplianceDatas()
+      this.getTestDatas()
     },
 
     methods: {
       jump(index) {
         let jump = document.querySelectorAll('.item')
         // 获取需要滚动的距离
-        let total = jump[index].offsetTop -50;
+        let total = jump[index].offsetTop - 50;
         // document.getElementsByClassName('el-main main')[0].scrollTop = total
         let distance = document.getElementsByClassName('el-main main')[0].scrollTop
         let step = total / 10
-        if(total>distance){
-            smoothDown()
-        }else{
-            let newTotal = distance -total
-            step = newTotal/50
-            smoothUp()
+        if (total > distance) {
+          smoothDown()
+        } else {
+          let newTotal = distance - total
+          step = newTotal / 50
+          smoothUp()
         }
-        function smoothDown () {
+
+        function smoothDown() {
           if (distance < total) {
             distance += step
-　　　　　　　document.getElementsByClassName('el-main main')[0].scrollTop = distance
+            document.getElementsByClassName('el-main main')[0].scrollTop = distance
             setTimeout(smoothDown, 10)
           } else {
             document.getElementsByClassName('el-main main')[0].scrollTop = total
           }
         }
-        function smoothUp () {
+
+        function smoothUp() {
           if (distance > total) {
             distance -= step
-　　　　　　　document.getElementsByClassName('el-main main')[0].scrollTop = distance
+            document.getElementsByClassName('el-main main')[0].scrollTop = distance
             setTimeout(smoothUp, 10)
           } else {
             document.getElementsByClassName('el-main main')[0].scrollTop = total
           }
-       } 
+        }
       },
-      onScroll(){
+      onScroll() {
         let scrolled = document.getElementsByClassName('el-main main')[0].scrollTop
         if (scrolled >= 1928) {
-            this.active = '3'
+          this.active = '3'
         } else if (scrolled >= 1268) {
-            this.active = '2'
+          this.active = '2'
         } else if (scrolled < 1368 && scrolled >= 605) {
-            this.active = '1'
+          this.active = '1'
         } else {
-            this.active = '0'
+          this.active = '0'
         }
+      },
+      getSideNames() {
+        this.$axios({
+          method: 'POST',
+          url: 'api/ciapp-server/dict/type_TOOLS_TYPE'
+        }).then(data => {
+          this.sidenames = data.data
+        })
+      },
+      getCodeDatas() {
+        this.$axios({
+          method: 'POST',
+          url: 'api/ciapp-server/systool/code_page_show',
+          data: {
+            sEcho: '1',
+            iDisplayLength: '10'
+          }
+        }).then(data => {
+          if (data.status === 200) {
+            this.codeDatas = data.data.aaData
+          }
+        })
+      },
+      getCompliedDatas(){
+        this.$axios({
+          method: 'POST',
+          url: 'api/ciapp-server/systool/build_page_show',
+          data: {
+            sEcho: '1',
+            iDisplayLength: '10'
+          }
+        }).then(data => {
+          if (data.status === 200) {
+            this.compliedDatas = data.data.aaData
+            console.log(this.compliedDatas)
+            
+          }
+        })
+      },
+      getComplianceDatas(){
+        this.$axios({
+          method: 'POST',
+          url: 'api/ciapp-server/systool/compliance_page_show',
+          data: {
+            sEcho: '1',
+            iDisplayLength: '10'
+          }
+        }).then(data => {
+          if (data.status === 200) {
+            this.complianceDatas = data.data.aaData
+          }
+        })
+      },
+      getTestDatas(){
+        this.$axios({
+          method: 'POST',
+          url: 'api/ciapp-server/systool/unittest_page_show',
+          data: {
+            sEcho: '1',
+            iDisplayLength: '10'
+          }
+        }).then(data => {
+          if (data.status === 200) {
+            this.testDatas = data.data.aaData
+          }
+        })
       }
     }
   }
+
 </script>
 <style scoped lang="scss">
   .main-content {
@@ -264,7 +329,7 @@
       }
       .infoItem {
         width: 100%;
-        padding-top: 28px;
+        padding: 28px;
       }
       .info-title {
         margin-bottom: 20px;
@@ -275,7 +340,7 @@
         width: 85%;
         margin: 0;
         height: 100%;
-        position: relative;
+        margin-top: 10px;
       }
       li {
         float: left;
@@ -311,7 +376,15 @@
     margin-top: 20px;
     top: 130px;
     z-index: 1000; // left: calc(80% + 144px);
-    left: 89%;
+    left: 88%;
+    min-width: 136px;
+    .side-menu .menu-title {
+      text-align: center;
+      font-size: 14px; // padding: 12px 30px;
+      cursor: pointer;
+      /* min-width: 116px; */
+      // position: relative;
+    }
     .el-menu-item.is-active {
       background-color: #f7f7f7;
     }
