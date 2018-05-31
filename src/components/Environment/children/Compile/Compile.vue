@@ -4,33 +4,38 @@
         <div class="compile_form">
             <div class="compile_from_cont">
                 <el-form ref="form" :model="form" label-width="130px" :rules="rules">
-                    <el-form-item label="Type" prop="type">
-                        <el-select v-model="form.type" placeholder="choose">
-                        <el-option label="JENKINS" value="JENKINS"></el-option>
+                    <el-form-item label="Type" prop="type_id">
+                        <el-select v-model="form.type_id" placeholder="choose">
+                         <el-option
+                            v-for="item in options"
+                            :key="item.value"
+                            :label="item.name"
+                            :value="item.type_id">
+                        </el-option>
                         </el-select>
                     </el-form-item>
-                    <el-form-item label="Name" prop="name">
-                        <el-input v-model="form.name"></el-input>
+                    <el-form-item label="Name" prop="build_name">
+                        <el-input v-model="form.build_name"></el-input>
                     </el-form-item>
-                    <el-form-item label="Port" prop="port">
-                        <el-input v-model="form.port"></el-input>
+                    <el-form-item label="Port" prop="build_port">
+                        <el-input v-model="form.build_port"></el-input>
                     </el-form-item>
-                    <el-form-item label="User Name" prop="usename">
-                        <el-input v-model="form.usename"></el-input>
+                    <el-form-item label="User Name" prop="build_username">
+                        <el-input v-model="form.build_username"></el-input>
                     </el-form-item>
-                    <el-form-item label="Password" prop="password">
-                        <el-input v-model="form.password"></el-input>
+                    <el-form-item label="Password" prop="build_pwd">
+                        <el-input v-model="form.build_pwd"></el-input>
                     </el-form-item>
-                    <el-form-item label="Address" prop="address">
-                        <el-input v-model="form.address"></el-input>
+                    <el-form-item label="Address" prop="build_host">
+                        <el-input v-model="form.build_host"></el-input>
                     </el-form-item>
-                     <el-form-item label="Version" prop="version">
-                    <el-input v-model="form.version"></el-input>
+                     <el-form-item label="Version" prop="build_version">
+                    <el-input v-model="form.build_version"></el-input>
                 </el-form-item> 
                 <el-form-item>
                     <el-col :span="8">
-                        <el-form-item label="Default" prop="default">
-                            <el-switch v-model="form.default" size="mini"  active-color="#00653d"></el-switch>
+                        <el-form-item label="Default" prop="is_default">
+                            <el-switch v-model="form.is_default" size="mini"  active-color="#00653d"></el-switch>
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
@@ -57,32 +62,33 @@
 
       data(){
           return {
+              options:{},
              form: {
-                type: '',
-                name:'',
-                port:'',
-                usename: '',
-                password: '',
-                address: '',
-                version:'',
-                default: false,
+                type_id: '',
+                build_name:'',
+                build_port:'',
+                build_username: '',
+                build_pwd: '',
+                build_host: '',
+                build_version:'',
+                is_default: false,
                 status:true
               
             },
              rules: {
-                name: [
+                build_name: [
                     { required: true, message: 'Please Choose Name', trigger: 'blur' },
                 ],
-                 port: [
+                 build_port: [
                     { required: true, message: 'Please Input Prot', trigger: 'blur' }
                 ],
-                usename: [
+                build_username: [
                     { required: true, message: 'Please Input User Name', trigger: 'blur' }
                 ],
-                password: [
+                build_pwd: [
                     { required: true, message: 'Please Input Password', trigger: 'blur' }
                 ],
-                address: [
+                build_host: [
                     { required: true, message: 'Please Input Address', trigger: 'blur' }
                 ],
                 
@@ -91,6 +97,7 @@
       },
 
       created:function(){
+          this.selects()
          
           cicd.captionBar.caption = [
               {key:3,text:"Configure Manage",url:""},
@@ -107,9 +114,68 @@
       },
 
       methods: {
+
+            selects(){
+                 let _this = this
+                this.$axios({
+                   url:'api/ciapp-server/dict/typeTool_2',
+                   method:'POST',
+                })
+                .then(function (response) {  
+                    _this.options = response.data
+                })
+            },
             onSubmit() {
-                console.log('submit!');
+                let _this = this
+                this.form.is_default = false ? 0 :1;
+                this.form.status = false ? 0 :1;
+
+                this.$axios({
+                   url:'api/ciapp-server/systool/build_merge',
+                   method:'POST',
+                   data:this.form,
+                })
+                .then(function (response) {  
+                     if(response.data.success == true){
+                         _this.success(response.data.message)
+                     }else{
+                        _this.warning(response.data.message)
+                     }
+                })
+                .catch(function (error) {
+                    _this.err(error)
+                })
+            },
+            msg(msg) {
+                this.$message({
+                    showClose: true,
+                    message: msg
+                });
+            },
+            success(msg) {
+               this.$message({
+                    showClose: true,
+                    message: msg,
+                    type: 'success'
+                });
+            },
+
+            warning(msg) {
+                this.$message({
+                    showClose: true,
+                    message: msg,
+                    type: 'warning'
+                });
+            },
+
+            err(msg) {
+              this.$message({
+                    showClose: true,
+                    message: msg,
+                    type: 'error'
+                });
             }
+
  
       }
     }
