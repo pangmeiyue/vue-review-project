@@ -1,8 +1,16 @@
 <template>
     <div class="container">
+
+      <!--页面上半部-->
       <div class="container-top">
+
+        <!--分界条-->
         <div class="footer-span"></div>
+
+        <!--上半部分左侧区-->
         <div class="container-top-left">
+          
+          <!--左部-->
           <div class="left">
             <ol>
               <li>
@@ -30,33 +38,43 @@
               </li>
             </ol>
           </div>
+
+          <!--右部-->
           <div class="right"></div>
         </div>
+
+        <!--上半部分右侧区-->
         <dl class="container-top-right">
+
+          <!--区域标题-->
           <dt class="mt-15 ml-15 mr-15">
             <span class="fs-16 pos-rel top-5">Summary</span>&nbsp;&nbsp;
             <i class="iconfont color-99">&#xe663;</i>
-            <span class="fs-10 float-right color-99">2018-05-30 00:00:00</span>
+            <span class="fs-10 pull-right color-99">2018-05-30 00:00:00</span>
           </dt>
+
+          <!--区域内容-->
           <dd class="ml-15 mr-15">
             <ol class="ml-10 mr-10">
+
               <li class="mt-10">
                 <h1 class="display-block fs-14 color-55">Compliance</h1>
                 <div class="justfiy">
-                  <dl class="float-left ml-15 mr-15 tmd">
+                  <dl class="pull-left ml-15 mr-15 tmd">
                     <dt class="total-number h45">0</dt>
                     <dd class="fs-10 color-99">Total</dd>
                   </dl>
-                  <dl class="float-left tmd">
+                  <dl class="pull-left tmd">
                     <dt class="new-number h45">0</dt>
                     <dd class="fs-10 color-99">Added</dd>
                   </dl>
-                  <dl class="float-left  ml-15 mr-15 tmd">
+                  <dl class="pull-left  ml-15 mr-15 tmd">
                     <dt class="no-number h45">0</dt>
                     <dd class="fs-10 color-99">Unsolved</dd>
                   </dl>
                 </div>
               </li>
+
               <li class="mt-10">
                 <h1 class="display-block fs-14 color-55">UTest</h1>
                 <div class="justfiy">
@@ -64,18 +82,19 @@
                   <div class="tmd fs-12 UTestE mr-20 color-99">Coverage</div>
                 </div>
               </li>
+
               <li class="mt-10">
                 <h1 class="display-block fs-14 color-55">Security</h1>
                 <div class="justfiy">
-                  <dl class="float-left ml-15 mr-15 tmd">
+                  <dl class="pull-left ml-15 mr-15 tmd">
                     <dt class="total-number h45">0</dt>
                     <dd class="fs-10 color-99">Total</dd>
                   </dl>
-                  <dl class="float-left tmd">
+                  <dl class="pull-left tmd">
                     <dt class="new-number h45">0</dt>
                     <dd class="fs-10 color-99">Added</dd>
                   </dl>
-                  <dl class="float-left  ml-15 mr-15 tmd">
+                  <dl class="pull-left  ml-15 mr-15 tmd">
                     <dt class="no-number h45">0</dt>
                     <dd class="fs-10 color-99">Unsolved</dd>
                   </dl>
@@ -85,8 +104,12 @@
           </dd>
         </dl>
       </div>
+
+      <!--页面下半部分-->
       <div class="container-bottom">
         <div class="ml-10 mr-10">
+
+          <!--新任务创建按钮-->
           <div class="taskBut">
             <div class="pos-rel top-85">
               <img src="../../../assets/add.png" alt="" /><br/>
@@ -94,9 +117,13 @@
             </div>
           </div>
 
+          <!--platform card-->
           <dl class="platformCard">
-              <dt class="h45 fs-18 ml-15 mr-15">
+              <dt class="h45 ml-15 mr-15 fs-16">
                 <span >Asset Platform Manage Build</span>
+                <span class="fs-14 pull-right">
+                  <font class="color-green-2">In Operation</font>
+                </span>
               </dt>  
               <dd class="ml-15 mr-15">
                 <ol>
@@ -111,16 +138,10 @@
                     </span>
                   </li>
 
-                  <li style="height:30px;">
-                    <span class="fs-14 float-right">
-                      <font class="color-green-1">In Operation</font>
-                    </span>
-                  </li>
-
                   <li class="color-55">
-                    <table class="float-left ml-15" style="width:220px;">
+                    <table class="pull-left ml-15 w220">
                       <tr>
-                        <td>
+                        <td class="h40">
                           Unsolved <font class="color-red">( 0 )</font>
                         </td>
                         <td>
@@ -136,9 +157,9 @@
                         </td>
                       </tr>
                     </table>
-                    <table class="float-right mr-15 tmd" style="width:65px;">
+                    <table class="pull-right mr-15 tmd mt-15 w65">
                       <tr>
-                        <td class="fs-25 color-blue-1" style="border-bottom:1px solid #dbdbdb;">
+                        <td class="fs-25 color-blue-1 bb-db">
                           22%
                         </td>
                       </tr>
@@ -150,14 +171,54 @@
                     </table>
                   </li>
 
-                  <li class="justfiy" style="width:100%;margin-top:15px;">
-                    <img src="../../../assets/right.png" alt="" />
-                    <img src="../../../assets/error.png" alt="" />
-                    <img src="../../../assets/over.png" alt="" />
-                    <img src="../../../assets/over.png" alt="" />
+                  <li class="justfiy pos-rel top-20 w100ps">
+                    <dl class="z-top">
+                      <dt>
+                        <img src="../../../assets/right.png" alt="" class="w22" />
+                      </dt>
+                      <dd class="fs-12">
+                        Start
+                      </dd>
+                    </dl>
+                    <dl class="tmd z-top">
+                      <dt>
+                        <img src="../../../assets/error.png" alt="" class="w22"  />
+                      </dt>
+                      <dd class="fs-12">
+                        JENKINS
+                      </dd>
+                    </dl>
+                    <dl class="tmd z-top">
+                      <dt>
+                        <img src="../../../assets/over.png"  alt="" class="w22"  />
+                      </dt>
+                      <dd class="fs-12">
+                        AUTODEPLOY
+                      </dd>
+                    </dl>
+                    <dl class="tmd z-top">
+                      <dt>
+                        <img src="../../../assets/over.png"  alt="" class="w22"  />
+                      </dt>
+                      <dd class="fs-12">
+                        End
+                      </dd>
+                    </dl>
+                    <hr class="hr" />
                   </li>
                 </ol>
               </dd>
+              <dt class="platformCard-foot">
+                <div class="pull-left ml-15 color-88">
+                  <i class="iconfont icon-user">&#xe66a;</i>
+                  <p id="td0_task_create_emp"></p>
+                </div>
+                <div class="pull-right mr-15 color-88">
+                  <i class="iconfont" title="Delete">&#xe671;</i>
+                  <i class="iconfont ml-15" title="Edit">&#xe672;</i>
+                  <i class="iconfont ml-15" title="Task details">&#xe652;</i>
+                </div>
+              </dt>
           </dl>
 
         </div>
@@ -192,227 +253,19 @@
 
 <style lang="scss" scoped>
 
-  .h45 {
-    height:45px;
-    line-height:45px;
+  /*--------------------------------定义风格样式开始-----------------------------*/
+  .w22 {
+    width:22px;
   }
 
-  .platformCard {
-    float:left;
-    width:348px;
-    height:264px;
-    margin-left:5px;
-    margin-right:5px;
-    border-radius: 5px;
-    border:1px solid #dbdbdb;
+  .w65 {
+    width:65px;
   }
 
-  @font-face {
-        font-family: 'iconfont';
-        src: url('../../../assets/font/iconfont.eot');
-        src: url('../../../assets/font/iconfont.eot?#iefix') format('embedded-opentype'),
-        url('../../../assets/font/iconfont.woff') format('woff'),
-        url('../../../assets/font/iconfont.ttf') format('truetype'),
-        url('../../../assets/font/iconfont.svg#iconfont') format('svg');
+  .w220 {
+    width:220px;
   }
-
-  .iconfont {
-	  font-family:"iconfont" !important;
-	  font-size:16px;
-	  font-style:normal;
-	  -webkit-font-smoothing: antialiased;
-	  -moz-osx-font-smoothing: grayscale;
-	}
-
-  .pos-rel {
-    position:relative;
-  }
-
-  .tmd {
-    text-align:center;
-  }
-
-  .justfiy {
-    display: -webkit-box;
-    display:-webkit-flex;
-    display:-ms-flexbox;
-    display: flex;
-    -webkit-box-pack: justify;
-    -webkit-justify-content: space-between;
-    -ms-flex-pack:justify;
-    justify-content: space-between;
-  }
-
-  .float-left {
-    float:left;
-  }
-
-  .float-right{
-    float:right;
-  }
-
-  .left-15 {
-    left:15px;
-  }
-
-  .top-5 {
-    top:5px;
-  }
-
-  .top-85 {
-    top:85px;
-  }
-
-  .ml-10 {
-    margin-left:10px;
-  }
-
-  .ml-15 {
-    margin-left:15px;
-  }
-
-  .ml-20 {
-    margin-left:20px;
-  }
-
-  .mr-20 {
-    margin-right:20px;
-  }
-
-  .mr-10 {
-    margin-right:10px;
-  }
-
-  .mr-15 {
-    margin-right:15px;
-  }
-
-  .mt-10 {
-    margin-top:10px;
-  }
-
-  .mt-15 {
-    margin-top:15px;
-  }
-
-  .mt-30 {
-    margin-top:30px;
-  }
-
-  .w60 {
-    width:50px;
-  }
-
-  .w50ps {
-    width:50%;
-  }
-
-  .h45 {
-    height:45px;
-    line-height:45px;
-  }
-
-  .fs-10 {
-    font-size:10px;
-  }
-
-  .fs-12 {
-    font-size:12px;
-  }
-
-  .fs-13 {
-    font-size:13px;
-  }
-
-  .fs-14 {
-    font-size:14px;
-  }
-
-  .fs-16 {
-    font-size:16px;
-  }
-
-  .fs-17 {
-    font-size:17px;
-  }
-
-  .fs-18 {
-    font-size:18px;
-  }
-
-  .fs-25 {
-    font-size:25px;
-  }
-
-  .float-right {
-    float:right;
-  }
-
-  .color-black {
-    color:#000;
-  }
-
-  .color-blue-1 {
-    color:#2196f3;
-  }
-
-  .color-red {
-    color:#d70303;
-  }
-
-  .total-number {
-    color: #6ed4e8;
-    font-family: MicrosoftYaHei Regular;
-    font-size: 34px;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .new-number {
-    color: #feb74b;
-    font-family: MicrosoftYaHei Regular;
-    font-size: 34px;
-    text-align: center;
-  }
-
-  .no-number {
-    color: #20cb48;
-    font-family: MicrosoftYaHei Regular;
-    font-size: 34px;
-    text-align: center;
-  }
-
-  .color-55 {
-    color:#555;
-  }
-
-  .color-88 {
-    color:#888;
-  }
-
-  .color-99 {
-    color:#999;
-  }
-
-  .color-green-1 {
-    color:#4a9900;
-  }
-  
-  dl,dt,dd,ol,li {
-    display:block;
-    margin:0px;
-    padding:0px;
-    border:0px;
-  }
-
-  .display-block {
-    display:block;
-  }
-
-  .container {
-    
-  }
-
+  /*--------------------------------定义风格样式结束-----------------------------*/
   .container-top .container-top-left,
   .container-top .container-top-left .left,
   .container-top .container-top-left .right{
@@ -421,25 +274,28 @@
 
   .container-top-right {
     position:absolute;
-    left:837px;
+    left:820px;
   }
 
-   .container-top .footer-span {
-      position:absolute;
-      z-index:999;
-      left:0px;
-      right:7px;
-      height:11px;
-      top:424px;
-      background-image:url("../../../assets/icon_bg-line.png");
-   }
-
+  
+  /*--------------------------------定义页面上半部分样式开始-----------------------------*/
   .container-top {
-    width:1096px;
+    width:1081px;
     height:428px;
     position: relative;
   }
 
+  .container-top .footer-span {
+      position:absolute;
+      z-index:999;
+      left:10px;
+      right:10px;
+      height:11px;
+      top:424px;
+      background-image:url("../../../assets/icon_bg-line.png");
+  }
+
+  /*--左侧样式--*/
   .container-top-left {
     position:relative;
     padding-top:15px;
@@ -447,7 +303,7 @@
     height:398px;
     background-color:#fff;
     border-radius:6px;
-    width:836px;
+    width:821px;
   }
 
   .container-top-left .left {
@@ -471,6 +327,7 @@
     line-height:13px;
   }
 
+  /*--微章样式--*/
   .container-top-left .left .badge dt {
     padding-top:8px;
   }
@@ -479,8 +336,9 @@
     margin-left:-2px;
   }
 
+  /*--右侧样式--*/
   .container-top-left .right {
-    width:584px;
+    width:569px;
     height:398px;
     border-top:1px solid #dbdde5;
     border-bottom:1px solid #dbdde5;
@@ -505,21 +363,15 @@
   .container-top-right dd ol li dl dt {
     height:auto;
   }
+  /*--------------------------------定义页面上半部分样式结束-----------------------------*/
 
+  /*--------------------------------定义页面下半部分样式开始-----------------------------*/
   .container-bottom {
     padding-top:20px;
     padding-bottom:20px;
     border-radius:6px;
     background-color:#fff;
     min-height:300px;
-  }
-
-  .UTestE{
-    width:70px;
-    height:70px;
-    line-height:70px;
-    border:1px solid #6ed4e8;
-    border-radius:80px;
   }
 
   .taskBut {
@@ -532,4 +384,66 @@
     margin-right:5px;
   }
 
+  .platformCard {
+    position: relative;
+    float:left;
+    width:348px;
+    height:264px;
+    margin-left:5px;
+    margin-right:5px;
+    border-radius: 5px;
+    border:1px solid #dbdbdb;
+  }
+
+  .platformCard-foot {
+    position:absolute;
+    width: 100%;
+    background: #ececec;
+    height: 38px;
+    line-height:38px;
+    bottom: 0px;
+  }
+
+  .hr {
+    border:0px;
+    height:0px;
+    border-bottom: 2px solid #4a9900;
+    position:absolute;
+    left:0px;
+    right:0px;
+    top:10px;
+    z-index:0;
+  }
+
+  .total-number {
+    color: #6ed4e8;
+    font-family: MicrosoftYaHei Regular;
+    font-size: 34px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .new-number {
+    color: #feb74b;
+    font-family: MicrosoftYaHei Regular;
+    font-size: 34px;
+    text-align: center;
+  }
+
+  .no-number {
+    color: #20cb48;
+    font-family: MicrosoftYaHei Regular;
+    font-size: 34px;
+    text-align: center;
+  }
+
+  .UTestE{
+    width:70px;
+    height:70px;
+    line-height:70px;
+    border:1px solid #6ed4e8;
+    border-radius:80px;
+  }
+  /*--------------------------------定义页面下半部分样式结束-----------------------------*/
+  
 </style>

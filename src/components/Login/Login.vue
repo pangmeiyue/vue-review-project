@@ -126,8 +126,6 @@
         bottom:0px;
     }
 
-    
-
     .iconfont {
         font-family:"iconfont" !important;
         font-size:16px;
@@ -257,17 +255,6 @@
 
       created:function(){
 
-            // axios.interceptors.request.use(function (config) {
-                
-            //     let  token = "aaa",
-            //          loginId = "bbb";
-            //     config.headers['Token'] = token;
-               
-            //     return config;
-            // }, function (error) {
-            //     // 当请求异常时做一些处理
-            //     return Promise.reject(error);
-            // });
       },
 
       mounted:function(){
@@ -275,26 +262,11 @@
       },
 
       methods: {
-        submitLogin:function() {
+        submitLogin:()=> {
 
             axios.post('/api/menuList').then(function (response) {
                 console.log(response,"ggr")
             })
-
-            // var data =  qs.stringify({
-            //     username: 'admin',
-            //     password: 'Password'
-            // });
-            // //  提交数据
-            // axios({
-            //     method: 'post',
-            //     url: 'http://192.168.1.223:18000/menuList',
-            //     //    必不可少，修改数据的提交方式
-            //     headers : {
-            //         "Content-Type":'application/x-www-form-urlencoded; charset=UTF-8'
-            //     },
-            //     data
-            // });
         }
       }
     }
