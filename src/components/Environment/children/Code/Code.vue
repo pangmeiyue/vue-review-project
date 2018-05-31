@@ -121,7 +121,18 @@
 
       methods: {
             onSubmit() {
-                console.log('submit!');
+                this.$axios({
+                   url:'api/ciapp-server/systool/code_merge',
+                   method:'POST',
+                   data:this.form,
+                })
+                .then(function (response) {     
+                     console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+                console.log('submit!',this.form);
             },
             toggleform(){
                 
