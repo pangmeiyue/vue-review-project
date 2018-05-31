@@ -29,7 +29,7 @@
 
             <!--页面导航-->
             <el-menu default-active="2" text-color="#3d3935" active-text-color="#2b8815" unique-opened router>
-              <el-submenu :index="mainMenu.menuId" v-for="mainMenu in menuData" :key="mainMenu.menuId">
+              <el-submenu :index="mainMenu.menuId+''" v-for="mainMenu in menuData" :key="mainMenu.menuId">
                 
                 <!--子菜单标题-->
                 <template slot="title">
@@ -40,7 +40,7 @@
 
                 <!--菜单项-->
                 <el-menu-item-group>
-                  <el-menu-item @click="goPath(subMenu)" :index="subMenu.menuId" class="fs-14" v-for="subMenu in mainMenu.subMenu" :key="subMenu.menuId">{{subMenu.menuName}}</el-menu-item>
+                  <el-menu-item @click="goPath(subMenu)" :index="subMenu.menuId+''" class="fs-14" v-for="subMenu in mainMenu.subMenu" :key="subMenu.menuId">{{subMenu.menuName}}</el-menu-item>
                 </el-menu-item-group>
               </el-submenu>
             </el-menu>
@@ -191,9 +191,6 @@
 
 <script>
     import Vue from 'vue'
-    import axios from 'axios'
-    import qs from 'qs'
-
     export default {
       name: 'App',
 
@@ -208,16 +205,11 @@
 
         var self = this;
         cicd.captionBar = this;
-
-        /*--菜单数据模拟开始--*/
-        // 菜单json数据
-        var menuDataJSON = '[{"menuId":54,"noId":null,"parentNoId":null,"isHome":null,"isVisible":null,"orderId":null,"menuIcon":"icon-LB","menuName":"CI","menuLink":"#","subMenu":[{"menuId":89,"noId":null,"parentNoId":null,"isHome":null,"isVisible":null,"orderId":null,"menuIcon":"","menuName":"Projects","menuLink":"/ciapp-server/ci/view__project_list","subMenu":[]},{"menuId":90,"noId":null,"parentNoId":null,"isHome":null,"isVisible":null,"orderId":null,"menuIcon":"","menuName":"Configure","menuLink":"/ciapp-server/ci/view__project-management","subMenu":[]},{"menuId":59,"noId":null,"parentNoId":null,"isHome":null,"isVisible":null,"orderId":null,"menuIcon":"","menuName":"Environment","menuLink":"/ciapp-server/ci/view__platform-configuration","subMenu":[]}]},{"menuId":58,"noId":null,"parentNoId":null,"isHome":null,"isVisible":null,"orderId":null,"menuIcon":"icon-install","menuName":"CD","menuLink":"#","subMenu":[{"menuId":60,"noId":null,"parentNoId":null,"isHome":null,"isVisible":null,"orderId":null,"menuIcon":"","menuName":"Workflow","menuLink":"cd-server/toPage/workflow|availableList","subMenu":[]},{"menuId":92,"noId":null,"parentNoId":null,"isHome":null,"isVisible":null,"orderId":null,"menuIcon":"","menuName":"History","menuLink":"cd-server/toPage/workflow|historyList","subMenu":[]},{"menuId":91,"noId":null,"parentNoId":null,"isHome":null,"isVisible":null,"orderId":null,"menuIcon":"","menuName":"Inventory","menuLink":"cd-server/inventory/listPage","subMenu":[]}]}]';
         
-        // 定时器500毫秒获取数据
-        setTimeout(function(){
-          
-          self.menuData = JSON.parse(menuDataJSON);
-        },500)
+        this.$axios.post('/api/menuList').then(function (res) {
+          self.menuData = res.data;
+        })
+
         /*--菜单数据模拟结束--*/
       },
 
