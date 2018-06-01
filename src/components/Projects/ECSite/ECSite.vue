@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" style="height:100%;">
 
       <!--页面上半部-->
       <div class="container-top">
@@ -44,7 +44,9 @@
           </div>
 
           <!--右部-->
-          <div class="right"></div>
+          <div id="lineArea" class="right">
+            
+          </div>
         </div>
 
         <!--上半部分右侧区-->
@@ -54,7 +56,7 @@
           <dt class="mt-15 ml-15 mr-15">
             <span class="fs-16 pos-rel top-5">Summary</span>&nbsp;&nbsp;
             <i class="iconfont color-99">&#xe663;</i>
-            <span class="fs-10 pull-right color-99">2018-05-30 00:00:00</span>
+            <span class="fs-10 pull-right color-99">{{prj.issuesCountView.issuesLastTime}}</span>
           </dt>
 
           <!--区域内容-->
@@ -65,15 +67,15 @@
                 <h1 class="display-block fs-14 color-55">Compliance</h1>
                 <div class="justfiy">
                   <dl class="pull-left ml-15 mr-15 tmd">
-                    <dt class="total-number h45">0</dt>
+                    <dt class="total-number h45">{{prj.issuesCountView.comp_sum_num}}</dt>
                     <dd class="fs-10 color-99">Total</dd>
                   </dl>
                   <dl class="pull-left tmd">
-                    <dt class="new-number h45">0</dt>
+                    <dt class="new-number h45">{{prj.issuesCountView.comp_new_num}}</dt>
                     <dd class="fs-10 color-99">Added</dd>
                   </dl>
                   <dl class="pull-left  ml-15 mr-15 tmd">
-                    <dt class="no-number h45">0</dt>
+                    <dt class="no-number h45">{{prj.issuesCountView.comp_unsolved_num}}</dt>
                     <dd class="fs-10 color-99">Unsolved</dd>
                   </dl>
                 </div>
@@ -82,8 +84,26 @@
               <li class="mt-10">
                 <h1 class="display-block fs-14 color-55">UTest</h1>
                 <div class="justfiy">
-                  <div class="tmd fs-12 UTestE ml-20 color-99">Success</div>
-                  <div class="tmd fs-12 UTestE mr-20 color-99">Coverage</div>
+                  <div class="tmd fs-12 UTestE ml-20 color-99">
+                    <dl>
+                      <dt class="color-blue-2 fs-14">
+                        {{parseInt(prj.issuesCountView.unit_success*100)}}%
+                      </dt>
+                      <dd>
+                        Success
+                      </dd>
+                    </dl>
+                  </div>
+                  <div class="tmd fs-12 UTestE mr-20 color-99">
+                    <dl>
+                      <dt class="color-blue-2 fs-14">
+                        {{parseInt(prj.issuesCountView.unit_coverage)*100}}%
+                      </dt>
+                      <dd>
+                        Coverage
+                      </dd>
+                    </dl>
+                  </div>
                 </div>
               </li>
 
@@ -91,16 +111,16 @@
                 <h1 class="display-block fs-14 color-55">Security</h1>
                 <div class="justfiy">
                   <dl class="pull-left ml-15 mr-15 tmd">
-                    <dt class="total-number h45">0</dt>
+                    <dt class="total-number h45">{{prj.issuesCountView.security_sum_num}}</dt>
                     <dd class="fs-10 color-99">Total</dd>
                   </dl>
                   <dl class="pull-left tmd">
-                    <dt class="new-number h45">0</dt>
+                    <dt class="new-number h45">{{prj.issuesCountView.security_new_num}}</dt>
                     <dd class="fs-10 color-99">Added</dd>
                   </dl>
                   <dl class="pull-left  ml-15 mr-15 tmd">
-                    <dt class="no-number h45">0</dt>
-                    <dd class="fs-10 color-99">Unsolved</dd>
+                    <dt class="no-number h45">{{prj.issuesCountView.security_unsolved_num}}</dt>
+                    <dd class="fs-10 color-99">Coverage</dd>
                   </dl>
                 </div>
               </li>
@@ -110,7 +130,7 @@
       </div>
 
       <!--页面下半部分-->
-      <div class="container-bottom">
+      <div class="container-bottom" :style="{height:pageBottomHeight+'px'}">
         <div class="ml-10 mr-10">
 
           <!--新任务创建按钮-->
@@ -122,9 +142,9 @@
           </div>
 
           <!--platform card-->
-          <dl class="platformCard">
+          <dl class="platformCard" v-for="task in tasks" :key="task.task_id" @mouseover="mouseInCard=true" :class="{boxShod:mouseInCard}" @mouseout="mouseInCard=false">
               <dt class="h45 ml-15 mr-15 fs-16">
-                <span >Asset Platform Manage Build</span>
+                <span >{{task.task_name}}</span>
                 <span class="fs-14 pull-right">
                   <font class="color-green-2">In Operation</font>
                 </span>
@@ -134,42 +154,43 @@
                   <li class="justfiy">
                     <span class="fs-14">
                       <i class="iconfont fs-14 color-99">&#xe617;</i>
-                      2018-03-09 16:11:28
+                      {{task.create_time}}
                     </span>
                     <span>
                       <i class="iconfont fs-14 color-99">&#xe665;</i>
-                      Executions 224
+                      Executions {{task.exec_num}}
                     </span>
                   </li>
 
                   <li class="color-55">
-                    <table class="pull-left ml-15 w220">
+                    <table class="pull-left ml-10 w210">
                       <tr>
                         <td class="h40">
-                          Unsolved <font class="color-red">( 0 )</font>
+                          Unsolved <font class="color-red">( {{parseInt(task.security_unsolved) + parseInt(task.comp_unsolved)}} )</font>
                         </td>
                         <td>
-                          Security <font class="color-blue-1">( 0 )</font>
+                          Security <font class="color-blue-1">( {{task.security_issues_sum}} )</font>
                         </td>
                       </tr>
                       <tr>
                         <td>
-                          Compliance <font class="color-blue-1">( 0 )</font>
+                          Compliance <font class="color-blue-1">( {{task.comp_issues_sum}})</font>
                         </td>
                         <td>
-                          Unit Test <font class="color-blue-1">( 0 )</font>
+                          Unit Test <font class="color-blue-1">( {{task.unit_success}} )</font>
                         </td>
                       </tr>
                     </table>
-                    <table class="pull-right mr-15 tmd mt-15 w65">
+                    <table class="pull-right mr-10 tmd mt-15 w65">
                       <tr>
                         <td class="fs-25 color-blue-1 bb-db">
-                          22%
+                          <font v-if="task.exec_num-task.failure_num != task.failure_num">{{parseInt((task.exec_num-task.failure_num)/task.exec_num*100)}}%</font>
+                          <font v-if="task.exec_num-task.failure_num == task.failure_num">0%</font>
                         </td>
                       </tr>
                       <tr>
                         <td>
-                          Success
+                          {{task.current_status | taskState}}
                         </td>
                       </tr>
                     </table>
@@ -178,31 +199,27 @@
                   <li class="justfiy pos-rel top-20 w100ps">
                     <dl class="z-top">
                       <dt>
-                        <img src="../../../assets/right.png" alt="" class="w22" />
+                        <img src="../../../assets/right.png" alt="" class="w22 cursor-hand" />
                       </dt>
                       <dd class="fs-12">
                         Start
                       </dd>
                     </dl>
-                    <dl class="tmd z-top">
+                    <dl class="tmd z-top" v-for="nodeViewVo in task.noteViewVos" :key="nodeViewVo.node_id">
                       <dt>
-                        <img src="../../../assets/error.png" alt="" class="w22"  />
+                        <img src="../../../assets/over.png" alt="" class="w22 cursor-hand" v-if="nodeViewVo.node_status == '0'" />
+                        <img src="../../../assets/load.gif" alt="" class="w22 cursor-hand" v-if="nodeViewVo.node_status == '1'" />
+                        <img src="../../../assets/right.png" alt="" class="w22 cursor-hand" v-if="nodeViewVo.node_status == '2'" />
+                        <img src="../../../assets/error.png" alt="" class="w22 cursor-hand" @click.stop="showLogPop(task.task_id)" v-if="nodeViewVo.node_status == '3'" />
                       </dt>
                       <dd class="fs-12">
-                        JENKINS
+                        {{nodeViewVo.node_name}}
                       </dd>
                     </dl>
                     <dl class="tmd z-top">
                       <dt>
-                        <img src="../../../assets/over.png"  alt="" class="w22"  />
-                      </dt>
-                      <dd class="fs-12">
-                        AUTODEPLOY
-                      </dd>
-                    </dl>
-                    <dl class="tmd z-top">
-                      <dt>
-                        <img src="../../../assets/over.png"  alt="" class="w22"  />
+                        <img src="../../../assets/over.png"  alt="" class="w22 cursor-hand" v-if="task.noteViewVos[task.noteViewVos.length - 1].node_status != '2'" />
+                        <img src="../../../assets/right.png"  alt="" class="w22 cursor-hand" v-if="task.noteViewVos[task.noteViewVos.length - 1].node_status == '2'" />
                       </dt>
                       <dd class="fs-12">
                         End
@@ -231,12 +248,16 @@
 </template>
 
 <script>
+  import Highcharts from '../../../../static/libs/highcharts.js'
+
   export default {
     name: 'ECSite',
 
     data() {
       return {
-        prj:{}
+        prj:{issuesCountView:{}},
+        tasks:[],
+        mouseInCard:false
       }
     },
 
@@ -245,21 +266,175 @@
       this.$axios.post('/api/ciapp-server/taskview/prjview_'+this.$route.query.name).then(function (res) {
           self.prj = res.data;
       })
-        
+
+      this.$axios.post('/api/ciapp-server/taskview/taskallview_'+this.$route.query.name).then(function (res) {
+          self.tasks = res.data;
+      })
+
+      //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+      window.onbeforeunload = function () {
+        window.websocket.close();
+      }
     },
 
     mounted: function () {
-
+      let self = this;
+      this.$axios.post('/api/ciapp-server/taskview/prjview_' + this.$route.query.name).then(function (res) {
+          self.drawLine(res.data.codeSubmitVos);
+      })
     },
 
     methods: {
-      
+
+      //绘制折线图
+      drawLine(codeSubmitVos) {
+        var categories = [];
+        var data = [];
+        for (var i = 0; i < codeSubmitVos.length; i++) {
+            categories.push(codeSubmitVos[i].c_time);
+            data.push(parseInt(codeSubmitVos[i].c_num));
+        }
+        //假数据开始
+        //data=[4,10,40,10,1,60,18.3,100.1];
+        //假数据结束
+
+        Highcharts.setOptions({
+            colors: ['#2196f3']
+        });
+        var chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'lineArea',
+                borderWidth: 0,
+                backgroundColor: 'rgba(0,0,0,0)' //设置背景色为透明
+            },
+            legend: {
+                enabled: false  //折线名称
+            },
+            credits: {
+                enabled: false
+            },
+            title: {
+                align: "left",
+                text: 'Submitted for the last seven days'
+            },
+            tooltip: {            //设置鼠标经过点提示框内容
+                shared: true,
+                useHTML: true,
+                headerFormat: "<small style='font-size:12px;color:#333333'>{point.key}</small><table>",
+                pointFormat: '<tr>' +
+                '<td style="text-align: right;color:#333333"><b>{point.y}</b></td></tr>',
+                footerFormat: '</table>',
+                valueDecimals: 0
+            },
+            xAxis: {
+                title: "",  //横线数据
+                categories: categories
+            },
+            yAxis: {
+                title: "",
+                gridLineColor: '#d4dde4',
+                gridLineDashStyle: 'Solid',
+                minPadding: 0,
+                allowDecimals: false
+            },
+            plotOptions: {
+                series: {
+                    marker: {
+                        fillColor: '#FFFFFF',  //设置圆点的颜色
+                        lineWidth: 2,
+                        lineColor: null // inherit from series
+                    }
+                }
+            },
+            series: [{ //竖线数据
+                data: data
+            }]
+        });
+      },
+
+      showLogPop(nodeId) {
+        cicd.logPop.logPopContent = "";
+        cicd.logPop.isShowLogPop = true;
+        this.$axios.post('/api/ciapp-server/analyzeA/builddetail_'+nodeId).then(function (res) {
+
+          cicd.logPop.logPopContent = res.data;
+        })
+      },
+
+      webSocketStart() {
+        //判断当前浏览器是否支持WebSocket
+        if ('WebSocket' in window) {
+            //本地
+            window.websocket = new WebSocket(("ws://") + "192.168.1.220:18000" + "/websocket/" + this.$route.query.name + "/direct");
+        }
+
+        //连接发生错误的回调方法
+        window.websocket.onerror = function () {
+
+        };
+
+        //连接成功建立的回调方法
+        window.websocket.onopen = function (event) {
+          console.log("success")
+        }
+
+        //接收到消息的回调方法
+        window.websocket.onmessage = function (event) {
+            console.log(event,"pprt")
+        }
+
+        //连接关闭的回调方法
+        window.websocket.onclose = function () {
+
+        }
+      },
+
+      webSocketStop(){
+        window.websocket.close();
+      }
+    },
+
+    computed: {
+
+      // 计算属性的 getter
+      pageBottomHeight() {
+
+        let height = parseInt((this.tasks.length+1) / 3) * (267 + 20)
+        if(parseInt(this.tasks.length+1 % 3) != 0) {
+          return height + 267;
+        }
+
+        return height;
+      }
+    },
+
+    filters: {
+      taskState: function (value) {
+        if (value == '2') {
+          return 'Success';
+        } 
+        if (value == '3') {
+          return 'Fail';
+        }
+        if (value == '1' || value == '4') {
+          return 'Start up';
+        }
+        if (value == '0') {
+          return 'Not starting';
+        }
+
+        return "";
+      }
     }
   }
 
 </script>
 
 <style lang="scss" scoped>
+
+  .fs-25 {
+    font-size:18px;
+  }
 
   /*--------------------------------定义风格样式开始-----------------------------*/
   .w22 {
@@ -270,8 +445,8 @@
     width:65px;
   }
 
-  .w220 {
-    width:220px;
+  .w210 {
+    width:210px;
   }
   /*--------------------------------定义风格样式结束-----------------------------*/
   .container-top .container-top-left,
@@ -395,8 +570,9 @@
   .platformCard {
     position: relative;
     float:left;
-    width:348px;
-    height:264px;
+    width:340px;
+    height:267px;
+    margin-bottom:20px;
     margin-left:5px;
     margin-right:5px;
     border-radius: 5px;
@@ -448,9 +624,20 @@
   .UTestE{
     width:70px;
     height:70px;
-    line-height:70px;
     border:1px solid #6ed4e8;
     border-radius:80px;
+  }
+
+  .UTestE dl {
+    width:55px;
+    margin-left:7px;
+    margin-top:10px;
+  }
+
+  .boxShod {
+    -moz-box-shadow:2px 2px 19px #679BF5; 
+    -webkit-box-shadow:2px 2px 19px #679BF5; 
+    box-shadow:2px 2px 19px #679BF5;
   }
   /*--------------------------------定义页面下半部分样式结束-----------------------------*/
   

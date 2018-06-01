@@ -1,5 +1,16 @@
-<template>
-    <el-container  class="h100ps">
+<template >
+  <div class="h100ps" @click="frameDown()">
+    <el-container  class="h100ps" >
+
+        <div class="jenkins_wrong_question" v-show="isShowLogPop" :class="{showLogPop:isShowLogPop,hideLogPop:!isShowLogPop}" @click.stop="()=>{}" >
+          <div class="wrong_question">
+            <div class="question_content_title">LOG</div>
+            <div class="question_content_content">
+              <pre>{{logPopContent}}</pre>
+            </div>
+          </div>
+        </div>
+
         <!--定义页头-->
         <el-header height="50px" class="bg-green-1 color-white lh-50 pd-none">
           <label class="fs-18 ml-50">
@@ -55,14 +66,15 @@
                 <el-breadcrumb-item v-for="item in caption" :to="{path: item.url}" :key="item.key">{{item.text}}</el-breadcrumb-item>
               </el-breadcrumb>
             </el-header>
-            <router-view class="Router"></router-view>
+           
+            <router-view class="Router" ></router-view>
           </el-main>
       </el-container>
     </el-container>
-      
+  </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
   @font-face {
         font-family: 'iconfont';
@@ -145,7 +157,7 @@
       background-color:#fff;
   }
 
-  .asideLeft .el-menu-item-group__title {
+  .el-menu-item-group__title {
       display:none;
   }
 
@@ -186,7 +198,92 @@
   }
   /*--------------------------定制左侧导航样式结束---------------------------*/
 
+  .jenkins_wrong_question {
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin: 0 auto;
+    float: right;
+    width: 0;
+    height: 100%;
+    z-index: 999999;
+    background-color: #ffffff;
+    box-shadow: -10px 0 10px rgba(102, 102, 102, 0.35);
+  }
+
+  .jenkins_wrong_question {
+      overflow: auto;
+  }
+
+  .jenkins_wrong_question .wrong_question {
+      margin: inherit;
+      padding-top: 20px;
+      border-radius: 0px;
+      height: 97%;
+      width: 97%;
+  }
+
+  .jenkins_wrong_question .wrong_question .question_content_title {
+      text-align: center;
+      font-size: 30px;
+      padding-top: 10px;
+  }
+
+  .jenkins_wrong_question .wrong_question .question_content_content {
+      margin-top: 50px;
+  }
+
+  pre {
+      display: block;
+      padding: 9.5px;
+      margin: 0 0 10px;
+      font-size: 13px;
+      line-height: 1.42857143;
+      color: #333;
+      word-break: break-all;
+      word-wrap: break-word;
+      background-color: #f5f5f5;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      overflow-x:hidden;
+  }
   
+  .showLogPop {
+      animation-iteration-count:0;
+      animation:logPopShowAnimation 1s ;
+      -webkit-animation:logPopShowAnimation 1s ;
+      width:60%;
+  }
+
+  @keyframes logPopShowAnimation
+  {
+      from {width:0px;}
+      to {width:60%}
+  }
+  @-webkit-keyframes logPopShowAnimation
+  {
+      from {width:0px;}
+      to {width:60%}
+  }
+
+  .hideLogPop {
+      animation-iteration-count:0;
+      animation:logPopShowAnimation 1s ;
+      -webkit-animation:logPopShowAnimation 1s ;
+      width:0px;
+  }
+
+  @keyframes logPopHideAnimation
+  {
+      from {width:60%}
+      to {width:0px;}
+  }
+  @-webkit-keyframes logPopHideAnimation
+  {
+      from {width:60%}
+      to {width:0px;}
+  }
+
 </style>
 
 <script>
@@ -197,6 +294,8 @@
       data(){
           return {
             caption:"",
+            isShowLogPop:false,
+            logPopContent:"",
             menuData:[]
           }
       },
@@ -205,6 +304,7 @@
 
         var self = this;
         cicd.captionBar = this;
+        cicd.logPop = this;
         
         this.$axios.post('/api/menuList').then(function (res) {
           self.menuData = res.data;
@@ -219,6 +319,10 @@
       },
 
       methods: {
+
+        frameDown() {
+          this.isShowLogPop = false;
+        },
         
         goPath(menu) {
 
