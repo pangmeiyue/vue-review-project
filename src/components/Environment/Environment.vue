@@ -7,7 +7,7 @@
           <font class="iconfont icon-compiled1"></font>
           <span class="tittle fl">Code</span>
           <div class="fr">
-            <router-link to="/Code">添加</router-link>
+            <router-link to="/Code"><i class="el-icon-plus titleIcon"></i></router-link>
           </div>
         </div>
         <div class="content clear">
@@ -42,7 +42,7 @@
           <i></i>
           <span class="tittle fl">Compile</span>
           <div class="fr">
-            <router-link to="/Compile">添加</router-link>
+            <router-link to="/Compile"><i class="el-icon-plus titleIcon"></i></router-link>
           </div>
         </div>
         <div class="content clear">
@@ -77,7 +77,7 @@
           <i></i>
           <span class="tittle fl">Compliance</span>
           <div class="fr">
-            <router-link to="/Compliance">添加</router-link>
+            <router-link to="/Compliance"><i class="el-icon-plus titleIcon"></i></router-link>
           </div>
         </div>
         <div class="content clear">
@@ -112,7 +112,7 @@
           <i></i>
           <span class="tittle fl">Test</span>
           <div class="fr">
-            <router-link to="/Test">添加</router-link>
+            <router-link to="/Test"><i class="el-icon-plus titleIcon"></i></router-link>
           </div>
         </div>
         <div class="content clear">
@@ -323,6 +323,10 @@
       width: 83%;
       height: 100%;
       min-width: 860px;
+      .titleIcon{
+        font-size: 22px;
+        font-weight: 700;
+      }
       .infoItemModify {
         width: 15%;
         height: 100%;
