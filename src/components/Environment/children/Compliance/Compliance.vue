@@ -7,7 +7,7 @@
           <el-form-item label="Name" prop="comp_name" :rules="[
           { required: true, message: '不能为空'}
         ]">
-            <el-select v-model="validateForm.comp_name" placeholder="请选择活动区域">
+            <el-select v-model="validateForm.comp_name" placeholder="请选择活动区域" @change="changeOption">
               <el-option :key="key" v-for="(item,key) in addNames" :label="item.name" :value="item.name"></el-option>
             </el-select>
           </el-form-item>
@@ -69,7 +69,7 @@
           is_default: false,
           status: true,
           sysDict: {
-            type_id: '12'
+            type_id: ''
           },
           sys_comp_tool_id: ''
         }
@@ -102,6 +102,13 @@
     },
 
     methods: {
+      changeOption(val){
+        let obj = {};
+        obj = this.addNames.find((item) => {
+          return item.name === val
+        });
+        this.validateForm.sysDict.type_id = obj.type_id
+      },
       onSubmit(formName) {
         this.validateForm.is_default = this.validateForm.is_default ? 1 : 0;
         this.validateForm.status = this.validateForm.status ? 1 : 0
@@ -113,13 +120,11 @@
               url: 'api/ciapp-server/systool/compliance_merge',
               data: this.validateForm
             }).then(res => {
-              if(res.data.success == false){
                 this.$message({
                   message: res.data.message,
                   iconClass: 'icon',
                   center : true
                 });
-              }
             })
           } else {
             return
@@ -130,10 +135,12 @@
         this.$axios({
           method: 'POST',
           url: 'api/ciapp-server/dict/typeTool_3',
-        }).then(reponse => {
-          console.log(reponse)
-          this.addNames = reponse.data
-          this.typeId = reponse
+        }).then(response => {
+          console.log(response)
+          this.addNames = response.data
+          this.typeId = response
+          this.validateForm.comp_name = response.data[0].name
+          this.validateForm.sysDict.type_id = response.data[0].type_id
         })
       },
       //提示框
