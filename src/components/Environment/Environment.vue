@@ -7,7 +7,9 @@
           <font class="iconfont icon-compiled1"></font>
           <span class="tittle fl">Code</span>
           <div class="fr">
-            <router-link to="/Code"><i class="el-icon-plus titleIcon"></i></router-link>
+            <router-link to="/Code">
+              <i class="el-icon-plus titleIcon"></i>
+            </router-link>
           </div>
         </div>
         <div class="content clear">
@@ -42,7 +44,9 @@
           <i></i>
           <span class="tittle fl">Compile</span>
           <div class="fr">
-            <router-link to="/Compile"><i class="el-icon-plus titleIcon"></i></router-link>
+            <router-link to="/Compile">
+              <i class="el-icon-plus titleIcon"></i>
+            </router-link>
           </div>
         </div>
         <div class="content clear">
@@ -58,7 +62,7 @@
                     <li>{{data.create_emp}}</li>
                     <li class="is_default">{{data.status}}</li>
                   </ul>
-                   <div class="infoItemModify fr">
+                  <div class="infoItemModify fr">
                     <div class="fr deleteBox">
                       <i class="el-icon-delete"></i>
                     </div>
@@ -77,7 +81,9 @@
           <i></i>
           <span class="tittle fl">Compliance</span>
           <div class="fr">
-            <router-link to="/Compliance"><i class="el-icon-plus titleIcon"></i></router-link>
+            <router-link to="/Compliance">
+              <i class="el-icon-plus titleIcon"></i>
+            </router-link>
           </div>
         </div>
         <div class="content clear">
@@ -93,8 +99,8 @@
                     <li>{{data.create_emp}}</li>
                     <li class="is_default">{{data.status}}</li>
                   </ul>
-                   <div class="infoItemModify fr">
-                    <div class="fr deleteBox">
+                  <div class="infoItemModify fr">
+                    <div class="fr deleteBox" @click="deleteItem(data,'Compliance')">
                       <i class="el-icon-delete"></i>
                     </div>
                     <div class="fr editBox">
@@ -112,7 +118,9 @@
           <i></i>
           <span class="tittle fl">Test</span>
           <div class="fr">
-            <router-link to="/Test"><i class="el-icon-plus titleIcon"></i></router-link>
+            <router-link to="/Test">
+              <i class="el-icon-plus titleIcon"></i>
+            </router-link>
           </div>
         </div>
         <div class="content clear">
@@ -128,8 +136,8 @@
                     <li>{{data.create_emp}}</li>
                     <li class="is_default">{{data.status}}</li>
                   </ul>
-                   <div class="infoItemModify fr">
-                    <div class="fr deleteBox">
+                  <div class="infoItemModify fr">
+                    <div class="fr deleteBox" @click="deleteItem(data,'Test')">
                       <i class="el-icon-delete"></i>
                     </div>
                     <div class="fr editBox">
@@ -147,12 +155,12 @@
     <div class="anchor">
       <el-row class="tac">
         <el-col>
-      <el-menu v-if="sidenames.length" :key="index" v-for="(item,index) in sidenames" :default-active="active" class="side-menu">
-        <el-menu-item class="menu-title" @click="jump(index,item.type_id)" :index="(item.type_id).toString()">
-          <a slot="title">{{item.name}}</a>
-        </el-menu-item>
-      </el-menu>
-       </el-col>
+          <el-menu v-if="sidenames.length" :key="index" v-for="(item,index) in sidenames" :default-active="active" class="side-menu">
+            <el-menu-item class="menu-title" @click="jump(index,item.type_id)" :index="(item.type_id).toString()">
+              <a slot="title">{{item.name}}</a>
+            </el-menu-item>
+          </el-menu>
+        </el-col>
       </el-row>
     </div>
   </div>
@@ -195,7 +203,7 @@
     },
 
     methods: {
-      jump(index,id) {
+      jump(index, id) {
         let jump = document.querySelectorAll('.item')
         // 获取需要滚动的距离
         let total = jump[index].offsetTop - 50;
@@ -275,7 +283,7 @@
         }).then(data => {
           if (data.status === 200) {
             this.compliedDatas = data.data.aaData
-
+            console.log('???', this.compliedDatas)
           }
         })
       },
@@ -306,6 +314,43 @@
             this.testDatas = data.data.aaData
           }
         })
+      },
+      deleteItem(item,name) {
+        let id,url;
+        if(name === 'Compliance'){
+          id = item.sys_comp_tool_id
+          url = 'compliance_delete_'
+        }else if(name === 'Test'){
+          id = item.sys_unittest_id
+          url = 'unittest_delete_'
+        }
+        console.log(item)
+        this.$confirm('confirm delete?', 'message', {
+          confirmButtonText: 'yes',
+          cancelButtonText: 'no',
+        }).then(() => {
+          //成功
+          this.$axios({
+            method: 'POST',
+            url: 'api/ciapp-server/systool/'+url+ id
+          }).then(res => {
+            if (res.data.success === true) {
+              this.$message({
+                message: res.data.message,
+                iconClass: 'icon',
+                center: true
+              })
+            }
+            this.getComplianceDatas()
+            this.getTestDatas()
+          })
+        }).catch(() => {
+          this.$message({
+            message: res.data.message,
+            iconClass: 'icon',
+            center: true
+          })
+        });
       }
     }
   }
@@ -323,7 +368,7 @@
       width: 83%;
       height: 100%;
       min-width: 860px;
-      .titleIcon{
+      .titleIcon {
         font-size: 22px;
         font-weight: 700;
       }
@@ -331,7 +376,7 @@
         width: 15%;
         height: 100%;
         display: none;
-        i{
+        i {
           color: #000;
           font-size: 18px;
         }
@@ -339,7 +384,7 @@
           margin-right: 20px;
         }
       }
-      .infoItem:hover .infoItemModify{
+      .infoItem:hover .infoItemModify {
         display: block;
       }
       .item {

@@ -42,7 +42,7 @@
           </el-form-item>
           <el-form-item class="button-content">
             <el-button @click="onSubmit('validateForm')">Confirm</el-button>
-            <el-button>Cancel</el-button>
+            <el-button @click="cancel">Cancel</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -102,7 +102,7 @@
     },
 
     methods: {
-      changeOption(val){
+      changeOption(val) {
         let obj = {};
         obj = this.addNames.find((item) => {
           return item.name === val
@@ -120,15 +120,25 @@
               url: 'api/ciapp-server/systool/compliance_merge',
               data: this.validateForm
             }).then(res => {
-                this.$message({
-                  message: res.data.message,
-                  iconClass: 'icon',
-                  center : true
-                });
+              this.$message({
+                message: res.data.message,
+                iconClass: 'icon',
+                center: true
+              })
+              if (res.data.message == true) {
+                this.$router.push({
+                  path: '/Environment'
+                })
+              }
             })
           } else {
             return
           }
+        })
+      },
+      cancel() {
+        this.$router.push({
+          path: '/Environment'
         })
       },
       getNames() {
@@ -143,15 +153,6 @@
           this.validateForm.sysDict.type_id = response.data[0].type_id
         })
       },
-      //提示框
-      openMessageBox(message, type) {
-        console.log('type', type)
-        this.$alert(message, "提示", {
-          confirmButtonText: "确定",
-          type: type
-        });
-      }
-
     }
   }
 
