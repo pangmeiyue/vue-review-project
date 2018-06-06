@@ -29,7 +29,7 @@
                     <div class="fr deleteBox" @click="deleteItem(data,'Code')">
                       <i class="el-icon-delete"></i>
                     </div>
-                    <div class="fr editBox">
+                    <div class="fr editBox" :to="{path:'/Code',query: {id: data.ssys_code_tool_id}}">
                       <i class="el-icon-edit"></i>
                     </div>
                   </div>
@@ -66,7 +66,7 @@
                     <div class="fr deleteBox" @click="deleteItem(data,'Compile')">
                       <i class="el-icon-delete"></i>
                     </div>
-                    <div class="fr editBox">
+                    <div class="fr editBox" :to="{path:'/Compile',query: {id: data.sys_build_tool_id}}">
                       <i class="el-icon-edit"></i>
                     </div>
                   </div>
@@ -103,7 +103,7 @@
                     <div class="fr deleteBox" @click="deleteItem(data,'Compliance')">
                       <i class="el-icon-delete"></i>
                     </div>
-                    <div class="fr editBox">
+                    <div class="fr editBox" :to="{path:'/Compliance',query: {id: data.sys_comp_tool_id}}">
                       <i class="el-icon-edit"></i>
                     </div>
                   </div>
@@ -140,9 +140,12 @@
                     <div class="fr deleteBox" @click="deleteItem(data,'Test')">
                       <i class="el-icon-delete"></i>
                     </div>
-                    <div class="fr editBox" @click="edit(data,'Test')">
+                    <!-- <div class="fr editBox" @click="edit(data,'Test')">
                       <i class="el-icon-edit"></i>
-                    </div>
+                    </div> -->
+                    <router-link class="fr editBox" :to="{path:'/Test',query: {id: data.sys_unittest_id}}">
+                      <i class="el-icon-edit"></i>
+                    </router-link>
                   </div>
                 </div>
               </div>
@@ -312,26 +315,6 @@
           if (data.status === 200) {
             this.testDatas = data.data.aaData
           }
-        })
-      },
-      edit(item, name) {
-        let id, url;
-        if (name === 'Compliance') {
-          id = item.sys_comp_tool_id
-          url = 'compliance_show_'
-        } else if (name === 'Test') {
-          id = item.sys_unittest_id
-          url = 'unittest_show_'
-        }
-        this.$axios({
-          method: 'POST',
-          url: 'api/ciapp-server/systool/' + url + id
-        }).then(res => {
-          // console.log(res)
-          this.$router.push({
-            path: '/Test'
-          })
-          console.log(this.validateForm.comp_name)
         })
       },
       deleteItem(item, name) {

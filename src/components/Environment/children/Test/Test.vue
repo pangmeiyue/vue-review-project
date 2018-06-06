@@ -59,6 +59,7 @@
     data() {
       return {
         addNames: [],
+        queryId: '',
         form: {
           unittest_name: '',
           unittest_port: '',
@@ -77,6 +78,8 @@
     },
 
     created: function () {
+      this.queryId = this.$route.query.id //编辑的参数id
+      
       cicd.captionBar.caption = [{
           key: 3,
           text: "Configure Manage",
@@ -96,7 +99,6 @@
     },
 
     mounted: function () {
-
     },
 
     methods: {
