@@ -42,7 +42,7 @@
           </el-form-item>
           <el-form-item class="button-content">
             <el-button @click="onSubmit('form')">Confirm</el-button>
-            <el-button>Cancel</el-button>
+            <el-button @click="cancel">Cancel</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -78,8 +78,7 @@
     },
 
     created: function () {
-      this.queryId = this.$route.query.id //编辑的参数id
-      
+      this.edit()
       cicd.captionBar.caption = [{
           key: 3,
           text: "Configure Manage",
@@ -111,7 +110,7 @@
       },
       onSubmit(formName) {
         this.form.is_default = this.form.is_default ? 1 : 0;
-        this.form.status = this.form.status ? 1 : 0
+        this.form.status = this.form.status ? 1 : 0  
         this.$refs[formName].validate(valid => {
         if(valid){
         this.$axios({
@@ -124,6 +123,8 @@
               iconClass: 'icon',
               center: true
             });
+            this.form.is_default = this.form.is_default === 0 ? false : true;
+            this.form.status = this.form.status === 0 ? false : true;
         })
         }else{
           return false
@@ -141,6 +142,31 @@
           this.form.type_id = response.data[0].name
           this.form.sysDict.type_id = response.data[0].type_id
           // console.log(this.type_id)
+        })
+      },
+      edit(){
+        this.queryId = this.$route.query.id //编辑的参数id
+        if(this.queryId){
+          console.log('?????')
+           this.$axios({
+          method: 'POST',
+          url: 'api/ciapp-server/systool/unittest_show_'+this.queryId
+        }).then(res => {
+          console.log('Test',res.data)
+          let data = res.data
+          this.form.unittest_name = data.unittest_name
+          this.form.unittest_port = data.unittest_port
+          this.form.unittest_host = data.unittest_host
+          this.form.unittest_username = data.unittest_username
+          this.form.unittest_pwd = data.unittest_pwd
+          this.form.sys_unittest_id = this.$route.query.id
+        })
+        }
+       
+      },
+      cancel(){
+        this.$router.push({
+          path: '/Environment'
         })
       }
 

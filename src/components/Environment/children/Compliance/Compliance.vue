@@ -77,7 +77,7 @@
     },
 
     created: function () {
-
+      this.edit()
       cicd.captionBar.caption = [{
           key: 3,
           text: "Configure Manage",
@@ -125,6 +125,8 @@
                 iconClass: 'icon',
                 center: true
               })
+              this.validateForm.is_default = this.validateForm.is_default === 0 ? false : true;
+              this.validateForm.status = this.validateForm.status === 0 ? false : true;
               if (res.data.message == true) {
                 this.$router.push({
                   path: '/Environment'
@@ -135,6 +137,24 @@
             return
           }
         })
+      },
+      edit() {
+        this.queryId = this.$route.query.id //编辑的参数id
+        if (this.queryId) {
+          this.$axios({
+            method: 'POST',
+            url: 'api/ciapp-server/systool/compliance_show_' + this.queryId
+          }).then(res => {
+            console.log('Test', res.data)
+            let data = res.data
+            this.validateForm.comp_port = data.comp_port
+            this.validateForm.comp_host = data.comp_host
+            this.validateForm.comp_username = data.comp_username
+            this.validateForm.comp_pwd = data.comp_pwd
+            this.validateForm.comp_version = data.comp_version
+            this.validateForm.sys_comp_tool_id = this.$route.query.id
+          })
+        }
       },
       cancel() {
         this.$router.push({

@@ -29,9 +29,9 @@
                     <div class="fr deleteBox" @click="deleteItem(data,'Code')">
                       <i class="el-icon-delete"></i>
                     </div>
-                    <div class="fr editBox" :to="{path:'/Code',query: {id: data.ssys_code_tool_id}}">
+                    <router-link class="fr editBox" :to="{path:'/Code',query: {id: data.ssys_code_tool_id}}">
                       <i class="el-icon-edit"></i>
-                    </div>
+                    </router-link>
                   </div>
                 </div>
               </div>
@@ -66,9 +66,9 @@
                     <div class="fr deleteBox" @click="deleteItem(data,'Compile')">
                       <i class="el-icon-delete"></i>
                     </div>
-                    <div class="fr editBox" :to="{path:'/Compile',query: {id: data.sys_build_tool_id}}">
+                    <router-link class="fr editBox" :to="{path:'/Compile',query: {id: data.sys_build_tool_id}}">
                       <i class="el-icon-edit"></i>
-                    </div>
+                    </router-link>
                   </div>
                 </div>
               </div>
@@ -103,9 +103,9 @@
                     <div class="fr deleteBox" @click="deleteItem(data,'Compliance')">
                       <i class="el-icon-delete"></i>
                     </div>
-                    <div class="fr editBox" :to="{path:'/Compliance',query: {id: data.sys_comp_tool_id}}">
+                    <router-link class="fr editBox" :to="{path:'/Compliance',query: {id: data.sys_comp_tool_id}}">
                       <i class="el-icon-edit"></i>
-                    </div>
+                    </router-link>
                   </div>
                 </div>
               </div>
