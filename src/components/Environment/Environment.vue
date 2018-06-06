@@ -26,7 +26,7 @@
                     <li class="is_default">{{data.status}}</li>
                   </ul>
                   <div class="infoItemModify fr">
-                    <div class="fr deleteBox">
+                    <div class="fr deleteBox" @click="deleteItem(data,'Code')">
                       <i class="el-icon-delete"></i>
                     </div>
                     <div class="fr editBox">
@@ -63,7 +63,7 @@
                     <li class="is_default">{{data.status}}</li>
                   </ul>
                   <div class="infoItemModify fr">
-                    <div class="fr deleteBox">
+                    <div class="fr deleteBox" @click="deleteItem(data,'Compile')">
                       <i class="el-icon-delete"></i>
                     </div>
                     <div class="fr editBox">
@@ -140,7 +140,7 @@
                     <div class="fr deleteBox" @click="deleteItem(data,'Test')">
                       <i class="el-icon-delete"></i>
                     </div>
-                    <div class="fr editBox">
+                    <div class="fr editBox" @click="edit(data,'Test')">
                       <i class="el-icon-edit"></i>
                     </div>
                   </div>
@@ -283,7 +283,6 @@
         }).then(data => {
           if (data.status === 200) {
             this.compliedDatas = data.data.aaData
-            console.log('???', this.compliedDatas)
           }
         })
       },
@@ -315,14 +314,40 @@
           }
         })
       },
-      deleteItem(item,name) {
-        let id,url;
-        if(name === 'Compliance'){
+      edit(item, name) {
+        let id, url;
+        if (name === 'Compliance') {
+          id = item.sys_comp_tool_id
+          url = 'compliance_show_'
+        } else if (name === 'Test') {
+          id = item.sys_unittest_id
+          url = 'unittest_show_'
+        }
+        this.$axios({
+          method: 'POST',
+          url: 'api/ciapp-server/systool/' + url + id
+        }).then(res => {
+          // console.log(res)
+          this.$router.push({
+            path: '/Test'
+          })
+          console.log(this.validateForm.comp_name)
+        })
+      },
+      deleteItem(item, name) {
+        let id, url;
+        if (name === 'Compliance') {
           id = item.sys_comp_tool_id
           url = 'compliance_delete_'
-        }else if(name === 'Test'){
+        } else if (name === 'Test') {
           id = item.sys_unittest_id
           url = 'unittest_delete_'
+        } else if (name === 'Code') {
+          id = item.ssys_code_tool_id
+          url = 'code_delete_'
+        } else if (name === 'Compile') {
+          id = item.sys_build_tool_id
+          url = 'build_delete_'
         }
         console.log(item)
         this.$confirm('confirm delete?', 'message', {
@@ -332,7 +357,7 @@
           //成功
           this.$axios({
             method: 'POST',
-            url: 'api/ciapp-server/systool/'+url+ id
+            url: 'api/ciapp-server/systool/' + url + id
           }).then(res => {
             if (res.data.success === true) {
               this.$message({
@@ -343,6 +368,8 @@
             }
             this.getComplianceDatas()
             this.getTestDatas()
+            this.getCodeDatas()
+            this.getCompliedDatas()
           })
         }).catch(() => {
           this.$message({
