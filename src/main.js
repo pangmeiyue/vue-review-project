@@ -7,6 +7,10 @@ import App from './App.vue';
 import router from './router'
 import axios from 'axios'
 
+import Cookies from 'js-cookie';
+import {
+  getToken
+} from './utils/token';
 Vue.use(ElementUI);
 
 Vue.config.productionTip = false
@@ -15,6 +19,17 @@ Vue.prototype.$axios = axios
 new Vue({
   el: '#app',
   router,
-  components: { App },
+  components: {
+    App
+  },
   template: '<App/>'
 })
+
+router.beforeEach((to, from, next) => {
+  debugger
+  if (!getToken()) {
+    next('/');
+  }else{
+    next()
+  }
+});

@@ -5,23 +5,41 @@
 const path = require('path')
 
 module.exports = {
-  
+
   dev: {
     env: require('./dev.env'),
-    port: 8080,  //设置访问的端口号
+    port: 8080, //设置访问的端口号
     autoOpenBrowser: true, //自动打开浏览器
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-        '/api': {
-            target: 'http://192.168.1.220:18000/', //设置调用接口域名和端口号别忘了加http
+      '/api': {
+        target: 'http://192.168.1.220:18000/', //设置调用接口域名和端口号别忘了加http
 
-            changeOrigin: true,
-            pathRewrite: {
-                '^/api': '/' //这里理解成用‘/api’代替target里面的地址，组件中我们调接口时直接用/api代替
-                    // 比如我要调用'http://0.0:300/user/add'，直接写‘/api/user/add’即可 代理后地址栏显示/
-            }
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': '/' //这里理解成用‘/api’代替target里面的地址，组件中我们调接口时直接用/api代替
+          // 比如我要调用'http://0.0:300/user/add'，直接写‘/api/user/add’即可 代理后地址栏显示/
         }
+      },
+      '/auth/*': {
+        target: 'http://192.168.1.227:7004/api/auth',
+        logLevel: "debug",
+        changeOrigin: true,
+        pathRewrite: {
+          "^/auth": ""
+        }
+      },
+      // 用户中心服务器
+      '/uc/*': {
+        // target: "http://fastjee-gateway.com:5002/api/uc/",
+        target: 'http://192.168.1.227:7004/api/uc/',
+        logLevel: "debug",
+        changeOrigin: true,
+        pathRewrite: {
+          "^/uc": ""
+        }
+      }
     }
   },
 

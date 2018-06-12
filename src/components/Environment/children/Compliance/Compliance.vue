@@ -42,7 +42,7 @@
           </el-form-item>
           <el-form-item class="button-content">
             <el-button @click="onSubmit('validateForm')">Confirm</el-button>
-            <el-button @click="cancel">Cancel</el-button>
+            <el-button @click="returnToEnvironment($router)">Cancel</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -53,6 +53,7 @@
 </template>
 
 <script>
+import Bus from "../../../../common/Bus";
   export default {
     name: 'compliance',
 
@@ -77,6 +78,7 @@
     },
 
     created: function () {
+      this.returnToEnvironment = Bus.returnToEnvironment
       this.edit()
       cicd.captionBar.caption = [{
           key: 3,
@@ -155,11 +157,6 @@
             this.validateForm.sys_comp_tool_id = this.$route.query.id
           })
         }
-      },
-      cancel() {
-        this.$router.push({
-          path: '/Environment'
-        })
       },
       getNames() {
         this.$axios({

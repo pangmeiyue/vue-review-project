@@ -7,8 +7,8 @@
           <font class="iconfont icon-compiled1"></font>
           <span class="tittle fl">Code</span>
           <div class="fr">
-            <router-link to="/Code">
-              <i class="el-icon-plus titleIcon"></i>
+            <router-link to="/Code" >
+              <i class="el-icon-plus titleIcon" @click="recordScrollTop()"></i>
             </router-link>
           </div>
         </div>
@@ -45,7 +45,7 @@
           <span class="tittle fl">Compile</span>
           <div class="fr">
             <router-link to="/Compile">
-              <i class="el-icon-plus titleIcon"></i>
+              <i class="el-icon-plus titleIcon" @click="recordScrollTop()"></i>
             </router-link>
           </div>
         </div>
@@ -82,7 +82,7 @@
           <span class="tittle fl">Compliance</span>
           <div class="fr">
             <router-link to="/Compliance">
-              <i class="el-icon-plus titleIcon"></i>
+              <i class="el-icon-plus titleIcon" @click="recordScrollTop()"> </i>
             </router-link>
           </div>
         </div>
@@ -95,8 +95,8 @@
                 </ul>
                 <div class="p-team-info">
                   <ul class="fl">
-                    <li>{{data.build_name}}</li>
-                    <li>{{data.create_emp}}</li>
+                    <li>{{data.comp_name}}</li>
+                    <li>{{data.comp_username}}</li>
                     <li class="is_default">{{data.status}}</li>
                   </ul>
                   <div class="infoItemModify fr">
@@ -119,7 +119,7 @@
           <span class="tittle fl">Test</span>
           <div class="fr">
             <router-link to="/Test">
-              <i class="el-icon-plus titleIcon"></i>
+              <i class="el-icon-plus titleIcon" @click="recordScrollTop()"></i>
             </router-link>
           </div>
         </div>
@@ -170,6 +170,7 @@
 </template>
 
 <script>
+import Bus from '../../common/bus'
   export default {
     name: 'Environment',
     data() {
@@ -204,7 +205,9 @@
       this.getComplianceDatas()
       this.getTestDatas()
     },
-
+    mounted(){
+      document.querySelector('.main').scrollTop = Bus.scrollTop;
+    },
     methods: {
       jump(index, id) {
         let jump = document.querySelectorAll('.item')
@@ -316,6 +319,11 @@
             this.testDatas = data.data.aaData
           }
         })
+      },
+      recordScrollTop(){
+        let scrollTop = document.querySelector('.main').scrollTop;
+        Bus.scrollTop = scrollTop;
+        console.log( Bus.scrollTop)
       },
       deleteItem(item, name) {
         let id, url;
